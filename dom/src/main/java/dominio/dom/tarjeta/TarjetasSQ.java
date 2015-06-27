@@ -59,9 +59,12 @@ public class TarjetasSQ extends AbstractFactoryAndRepository
 		return container.allMatches(new QueryDefault<>(TarjetaSQ.class,"buscarPorNum","name", num));
 	}
 	
-	public TarjetaSQ Eliminar()
+	public String Eliminar(@ParameterLayout(named="Num")final String num)
 	{
-		return null;
+		TarjetaSQ t = BuscarUna(num);
+		removeIfNotAlready(t);		
+        getContainer().flush();
+        return "Tarjeta Eliminada";
 	}
 
 	public List<TarjetaSQ> ListarTodo()
@@ -69,6 +72,11 @@ public class TarjetasSQ extends AbstractFactoryAndRepository
 		return container.allInstances(TarjetaSQ.class);
 	}
 	
-  
+	private TarjetaSQ BuscarUna (String num)
+	{
+		return container.firstMatch(
+                new QueryDefault<>(TarjetaSQ.class, "buscarPorNum", "name", num ));
+	}
+
 	
 }
