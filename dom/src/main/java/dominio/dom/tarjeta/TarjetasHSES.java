@@ -69,4 +69,18 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 	}
 
 
+	
+	@Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+	public List<TarjetaHSES> listarPorFechas
+			(
+			@ParameterLayout(named="Fecha Inicial") final LocalDate rangoInicial,
+			@ParameterLayout(named="Fecha Final") final LocalDate rangoFinal
+			)
+	{
+		String ini = rangoInicial.toString();
+		String fin = rangoFinal.toString();
+		return container.allMatches(new QueryDefault<>(TarjetaHSES.class,"buscarPorFecha","rangoInicio", ini,"rangoFinal", fin));
+		
+	}
 }

@@ -3,6 +3,7 @@ bin/
 bin-debug/
 bin-release/
 *.*~
+datanucleus.log
 # Other files and folders
 .settings/
 
