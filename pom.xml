@@ -335,11 +335,6 @@
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>TarjetasMejorar-fixture</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>${project.groupId}</groupId>
                 <artifactId>TarjetasMejorar-webapp</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
@@ -365,8 +360,6 @@
 
   <modules>
     <module>dom</module>
-    <module>fixture</module>
-    <module>integtests</module>
     <module>webapp</module>
   </modules>
 </project>

@@ -21,7 +21,6 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
 
-import domainapp.dom.modules.simple.SimpleObject;
 
 
 
