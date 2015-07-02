@@ -4,7 +4,6 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-
 import org.apache.isis.applib.annotation.MemberOrder;
 
 
@@ -17,7 +16,20 @@ public abstract class Tarjeta
 	private String fechaCarga;
 	private String lugarObs;
 	private String lineaNegocio;
+	private boolean estado;
 	
+	
+	
+	
+	@MemberOrder (sequence = "7")
+	@Column(allowsNull = "true")
+
+	public boolean isEstado() {
+		return estado;
+	}
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 	@MemberOrder (sequence = "1")
 	@Column(allowsNull = "false",length = 40)
 	public String getNumTarjetaTesco() 

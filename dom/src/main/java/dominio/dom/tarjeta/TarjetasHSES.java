@@ -27,7 +27,8 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 	   						@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
 	   						@ParameterLayout(named="Lugar de Observacion") final String lugarObs,
 	   						@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
-	   						@ParameterLayout(named="Accion Realizada") final String accRealizada) 
+	   						@ParameterLayout(named="Accion Realizada") final String accRealizada,
+	   						@ParameterLayout(named="Estado") final boolean estado ) 
 	{
 		final TarjetaHSES tHSES = container.newTransientInstance(TarjetaHSES.class);
 		tHSES.setNumTarjetaTesco(String.valueOf(numTar));
@@ -36,6 +37,7 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 		tHSES.setLugarObs(lugarObs);
 		tHSES.setLineaNegocio(lineaNeg);
 		tHSES.setAccionRealizada(accRealizada);
+		tHSES.setEstado(estado);
 		container.persistIfNotAlready(tHSES);
 
 		return tHSES;
@@ -59,7 +61,7 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 	
 	public List<TarjetaHSES> ListarTodo()
 	{		
-		return container.allInstances(TarjetaHSES.class);
+		return container.allMatches(new QueryDefault<>(TarjetaHSES.class,"listar"));
 	}
 	
 	private TarjetaHSES BuscarUna (String num)

@@ -9,8 +9,9 @@ import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
 
 @javax.jdo.annotations.Queries({
-	    @javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0 "),
-	    @javax.jdo.annotations.Query(name = "buscarPorFecha", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.TarjetaHSES "+"WHERE fechaCarga >= :rangoInicio && fechaCarga <= :rangoFinal")
+		@javax.jdo.annotations.Query(name = "listar", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+ "WHERE estado == true"),
+	    @javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0"),
+	    @javax.jdo.annotations.Query(name = "buscarPorFecha", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.TarjetaHSES "+"WHERE fechaCarga >= :rangoInicio && fechaCarga <= :rangoFinal" + "&& estado == true")
 	    })
 @javax.jdo.annotations.Unique(name="TarjetaHSES_numTarjetaTesco_key", members = {"numTarjetaTesco"})
 
@@ -24,7 +25,7 @@ public class TarjetaHSES extends Tarjeta
 	@MemberOrder (sequence = "7")
 	@javax.jdo.annotations.Column(allowsNull = "false",length = 40)
 	public String getAccionRealizada() 
-	{
+	{	
 		return AccionRealizada;
 	}
 
