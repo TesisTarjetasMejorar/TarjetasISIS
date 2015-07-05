@@ -8,14 +8,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
-import org.joda.time.LocalDate;
-
-import dominio.dom.tarjeta.Tarjeta;
-import dominio.dom.tarjeta.TarjetaHSES;
-
 
 @DomainServiceLayout(menuOrder = "60")
-@DomainService(repositoryFor = TarjetaHSES.class)
+@DomainService(repositoryFor = ClasificacionSugerida.class)
 public class ClasificacionSugeridaServ extends AbstractFactoryAndRepository 
 {
 	@javax.inject.Inject 
