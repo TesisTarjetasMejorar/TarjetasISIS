@@ -17,21 +17,29 @@ public class Equipos extends AbstractFactoryAndRepository
 	@javax.inject.Inject 
     DomainObjectContainer container;
 	
-	public Equipo Cargar(@ParameterLayout (named="Nombre") final String nombre)			
+	public String Cargar(@ParameterLayout (named="Nombre") final String nombre)			
 		{
 			final Equipo equi = container.newTransientInstance(Equipo.class);
 			equi.setNombre(nombre);
 			container.persistIfNotAlready(equi);
 
-			return equi;
+			return "Equipo cargado correctamente";
 		}
 	
 	public String Eliminar(@ParameterLayout(named="Nombre")final String nom)
 	{
+		String mensaje="";
 		Equipo e = BuscarUna(nom);
-		removeIfNotAlready(e);		
-        getContainer().flush();
-        return "Equipo Eliminado";
+		if(e!=null)
+		{
+			removeIfNotAlready(e);		
+			getContainer().flush();
+			mensaje = "Equipo eliminado";
+		}
+		else
+			mensaje = "No se encontro equipo "+nom;
+		
+        return mensaje;
 	}
 	
 	private Equipo BuscarUna (String nom)

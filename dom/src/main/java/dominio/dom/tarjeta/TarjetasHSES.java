@@ -1,6 +1,7 @@
 package dominio.dom.tarjeta;
 
 import java.util.List;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
@@ -8,12 +9,15 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.Optionality;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
 
-import dominio.dom.lugarObservacion.LugarObservacion;
+import dominio.dom.equipo.Equipo;
+
 
 @DomainServiceLayout(menuOrder = "40")
 @DomainService(repositoryFor = TarjetaHSES.class)
@@ -28,15 +32,17 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 	   						@ParameterLayout(named="Lugar de Observacion") final String lugarObs,
 	   						@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
 	   						@ParameterLayout(named="Accion Realizada") final String accRealizada,
+	   						@Parameter(optionality = Optionality.OPTIONAL) final Equipo equipo,
 	   						@ParameterLayout(named="Estado") final boolean estado ) 
 	{
 		final TarjetaHSES tHSES = container.newTransientInstance(TarjetaHSES.class);
 		tHSES.setNumTarjetaTesco(String.valueOf(numTar));
-		tHSES.setFechaReporte(fechaRepo.toString());
-		tHSES.setFechaCarga(fechaCarga.toString());
+		tHSES.setFechaReporte(fechaRepo);
+		tHSES.setFechaCarga(fechaCarga);
 		tHSES.setLugarObs(lugarObs);
 		tHSES.setLineaNegocio(lineaNeg);
 		tHSES.setAccionRealizada(accRealizada);
+		tHSES.setEquipo(equipo);
 		tHSES.setEstado(estado);
 		container.persistIfNotAlready(tHSES);
 

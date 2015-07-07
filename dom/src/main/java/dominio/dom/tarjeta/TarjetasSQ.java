@@ -2,6 +2,7 @@ package dominio.dom.tarjeta;
 
 
 import java.util.List;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
@@ -13,7 +14,8 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
-import dominio.dom.lugarObservacion.LugarObservacion;
+
+import dominio.dom.equipo.Equipo;
 
 
 
@@ -31,15 +33,17 @@ public class TarjetasSQ extends AbstractFactoryAndRepository
 						@ParameterLayout(named="Lugar de Observacion") final String lugarObs,
 						@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
 						@ParameterLayout(named="Decicion Tomada") final String decisionTomada,
+						@ParameterLayout(named="Equipo") final Equipo equipo,
    						@ParameterLayout(named="Estado") final boolean estado) 
 	{
 		final TarjetaSQ tSQ = container.newTransientInstance(TarjetaSQ.class);
 		tSQ.setNumTarjetaTesco(String.valueOf(numTar));
-		tSQ.setFechaReporte(fechaRepo.toString());
-		tSQ.setFechaCarga(fechaCarga.toString());
+		tSQ.setFechaReporte(fechaRepo);
+		tSQ.setFechaCarga(fechaCarga);
 		tSQ.setLugarObs(lugarObs);
 		tSQ.setLineaNegocio(lineaNeg);
         tSQ.setDecicionTomada(decisionTomada);
+        tSQ.setEquipo(equipo);;
         tSQ.setEstado(estado);
         container.persistIfNotAlready(tSQ);
 		
