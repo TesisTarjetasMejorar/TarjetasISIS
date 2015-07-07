@@ -2,9 +2,13 @@ package dominio.dom.tarjeta;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Inheritance;
-import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+
 import org.apache.isis.applib.annotation.MemberOrder;
+
+import javax.jdo.annotations.InheritanceStrategy;
+
+import dominio.dom.lugarObservacion.LugarObservacion;
 
 
 @PersistenceCapable

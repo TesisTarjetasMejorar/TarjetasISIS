@@ -9,9 +9,8 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 
-@DomainServiceLayout(menuOrder = "60")
+@DomainServiceLayout(menuOrder = "70")
 @DomainService(repositoryFor = Equipo.class)
 public class Equipos extends AbstractFactoryAndRepository
 {

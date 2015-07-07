@@ -9,7 +9,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
 
-@DomainServiceLayout(menuOrder = "60")
+@DomainServiceLayout(menuOrder = "50")
 @DomainService(repositoryFor = ClasificacionSugerida.class)
 public class ClasificacionSugeridaServ extends AbstractFactoryAndRepository 
 {

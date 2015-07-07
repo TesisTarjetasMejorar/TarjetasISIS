@@ -1,8 +1,6 @@
 package dominio.dom.tarjeta;
 
-import java.util.Date;
 import java.util.List;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
@@ -14,6 +12,8 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
+
+import dominio.dom.lugarObservacion.LugarObservacion;
 
 @DomainServiceLayout(menuOrder = "40")
 @DomainService(repositoryFor = TarjetaHSES.class)
@@ -61,7 +61,7 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 	
 	public List<TarjetaHSES> ListarTodo()
 	{		
-		return container.allMatches(new QueryDefault<>(TarjetaHSES.class,"listar"));
+		return container.allInstances(TarjetaHSES.class);
 	}
 	
 	private TarjetaHSES BuscarUna (String num)
