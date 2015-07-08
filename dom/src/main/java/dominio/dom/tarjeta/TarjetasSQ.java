@@ -15,7 +15,9 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
 
+import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
+import dominio.dom.lugarObservacion.LugarObservacion;
 
 
 
@@ -27,12 +29,14 @@ public class TarjetasSQ extends AbstractFactoryAndRepository
 	@javax.inject.Inject 
     DomainObjectContainer container;
 	
+
 	public TarjetaSQ Cargar(@ParameterLayout (named="Numero de tarjeta") final int numTar,
 						@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
 						@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
-						@ParameterLayout(named="Lugar de Observacion") final String lugarObs,
+						@ParameterLayout(named="Lugar de Observacion") final LugarObservacion lugarObs,
 						@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
 						@ParameterLayout(named="Decicion Tomada") final String decisionTomada,
+   						@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
 						@ParameterLayout(named="Equipo") final Equipo equipo,
    						@ParameterLayout(named="Estado") final boolean estado) 
 	{
@@ -43,6 +47,7 @@ public class TarjetasSQ extends AbstractFactoryAndRepository
 		tSQ.setLugarObs(lugarObs);
 		tSQ.setLineaNegocio(lineaNeg);
         tSQ.setDecicionTomada(decisionTomada);
+        tSQ.setClasifSug(cs);
         tSQ.setEquipo(equipo);;
         tSQ.setEstado(estado);
         container.persistIfNotAlready(tSQ);

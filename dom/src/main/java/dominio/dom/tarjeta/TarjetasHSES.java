@@ -16,7 +16,9 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
 
+import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
+import dominio.dom.lugarObservacion.LugarObservacion;
 
 
 @DomainServiceLayout(menuOrder = "40")
@@ -26,13 +28,15 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 	@javax.inject.Inject 
     DomainObjectContainer container;
 	
+
 	public Tarjeta Cargar(@ParameterLayout (named="Numero de tarjeta") final int numTar,
 	   						@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
 	   						@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
-	   						@ParameterLayout(named="Lugar de Observacion") final String lugarObs,
+	   						@ParameterLayout(named="Lugar de Observacion") LugarObservacion lugarObs,
 	   						@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
 	   						@ParameterLayout(named="Accion Realizada") final String accRealizada,
-	   						@Parameter(optionality = Optionality.OPTIONAL) final Equipo equipo,
+	   						@ParameterLayout(named="Clasificacion Sugerida") ClasificacionSugerida cs,
+	   						@Parameter(optionality = Optionality.OPTIONAL) Equipo equipo,
 	   						@ParameterLayout(named="Estado") final boolean estado ) 
 	{
 		final TarjetaHSES tHSES = container.newTransientInstance(TarjetaHSES.class);
@@ -42,6 +46,7 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 		tHSES.setLugarObs(lugarObs);
 		tHSES.setLineaNegocio(lineaNeg);
 		tHSES.setAccionRealizada(accRealizada);
+		tHSES.setClasifSug(cs);
 		tHSES.setEquipo(equipo);
 		tHSES.setEstado(estado);
 		container.persistIfNotAlready(tHSES);

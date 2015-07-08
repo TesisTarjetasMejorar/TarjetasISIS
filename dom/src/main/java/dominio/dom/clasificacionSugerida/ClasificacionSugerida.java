@@ -3,13 +3,15 @@ package dominio.dom.clasificacionSugerida;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 @javax.jdo.annotations.Queries({
     @javax.jdo.annotations.Query(name = "buscarNombre", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.clasificacionSugerida "+ "WHERE nombre.indexOf(:name) >= 0 ")
 })
 @javax.jdo.annotations.Unique(name="ClasificacionSugerida_nombre_key", members = {"nombre"})
 
-@DomainObject(objectType = "ClasificacionSugerida")
+@DomainObject(objectType = "ClasificacionSugerida", bounded = true)
 @PersistenceCapable
 public class ClasificacionSugerida 
 {
@@ -17,6 +19,7 @@ public class ClasificacionSugerida
 	private String descripcion;
 
 	@javax.jdo.annotations.Column(allowsNull = "false",length = 40)
+	@MemberOrder (sequence = "2")
 	public String getDescripcion() 
 	{
 		return descripcion;
@@ -27,12 +30,19 @@ public class ClasificacionSugerida
 		this.descripcion = descripcion;
 	}
 	@javax.jdo.annotations.Column(allowsNull = "false",length = 40)
+	@MemberOrder (sequence = "1")
 	public String getNombre() {
 		return nombre;
 	}
-
-	public void setNombre(String nombre) {
+	public void setNombre(String nombre) 
+	{
 		this.nombre = nombre;
 	}
+
+	   public TranslatableString title() {
+	        return TranslatableString.tr("{name}", "name", getNombre());
+	    }
+	
+	
 
 }

@@ -7,7 +7,6 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.query.QueryDefault;
 
 
 @DomainServiceLayout(menuOrder = "60")
@@ -16,6 +15,7 @@ public class LugaresObservaciones extends AbstractFactoryAndRepository
 {
 	@javax.inject.Inject 
     DomainObjectContainer container;
+	
 	
 	public LugarObservacion Cargar(@ParameterLayout (named="Nombre") final String nombre,
 			@ParameterLayout (named="Descripcion") final String descripcion)				
@@ -28,18 +28,14 @@ public class LugaresObservaciones extends AbstractFactoryAndRepository
 			return lObs;
 
 		}
-	public String Eliminar(@ParameterLayout(named="Nombre")final String nom)
+	public String Eliminar(@ParameterLayout(named="Nombre")final LugarObservacion nom)
 	{
-		LugarObservacion lo = BuscarUna(nom);
-		removeIfNotAlready(lo);		
+		removeIfNotAlready(nom);		
         getContainer().flush();
-        return "Lugar Eliminada";
+        return "Lugar de observacion eliminado";
 	}
-	private LugarObservacion BuscarUna (String nom)
-	{
-		return container.firstMatch(
-                new QueryDefault<>(LugarObservacion.class, "buscarNombre", "name", nom ));
-	}
+	
+
 	public List<LugarObservacion> ListarTodo()
 	{		
 		return container.allInstances(LugarObservacion.class);

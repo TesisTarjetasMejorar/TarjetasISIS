@@ -3,10 +3,15 @@ package dominio.dom.tarjeta;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.PersistenceCapable;
+
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.joda.time.LocalDate;
+
 import javax.jdo.annotations.InheritanceStrategy;
+
+import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
+import dominio.dom.lugarObservacion.LugarObservacion;
 
 
 @PersistenceCapable
@@ -16,8 +21,9 @@ public abstract class Tarjeta
 	private String numTarjetaTesco;
 	private LocalDate fechaReporte;
 	private LocalDate fechaCarga;
-	private String lugarObs;
 	private String lineaNegocio;
+	private ClasificacionSugerida clasifSug;
+	private LugarObservacion lugarObs;
 	private Equipo equipo;
 	private boolean estado;
 	
@@ -55,17 +61,17 @@ public abstract class Tarjeta
 	}
 
 	@MemberOrder (sequence = "4")
-	@Column(allowsNull = "false",length = 40)
-	public String getLugarObs() 
+	@Column(allowsNull = "false")
+	public LugarObservacion getLugarObs() 
 	{
 		return lugarObs;
 	}
-	public void setLugarObs(String lugarObs) 
+	public void setLugarObs(LugarObservacion lugarObs) 
 	{
 		this.lugarObs = lugarObs;
 	}
 	@MemberOrder (sequence = "5")
-	@Column(allowsNull = "false",length = 40)
+	@Column(allowsNull = "true")
 	public String getLineaNegocio() 
 	{
 		return lineaNegocio;
@@ -73,6 +79,15 @@ public abstract class Tarjeta
 	public void setLineaNegocio(String lineaNegocio) 
 	{
 		this.lineaNegocio = lineaNegocio;
+	}
+	
+	@MemberOrder (sequence = "5")
+	@Column(allowsNull = "true")
+	public ClasificacionSugerida getClasifSug() {
+		return clasifSug;
+	}
+	public void setClasifSug(ClasificacionSugerida clasifSug) {
+		this.clasifSug = clasifSug;
 	}
 	
 	@MemberOrder (sequence = "6")

@@ -7,7 +7,6 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.query.QueryDefault;
 
 
 @DomainServiceLayout(menuOrder = "70")
@@ -26,28 +25,14 @@ public class Equipos extends AbstractFactoryAndRepository
 			return "Equipo cargado correctamente";
 		}
 	
-	public String Eliminar(@ParameterLayout(named="Nombre")final String nom)
+	public String Eliminar(@ParameterLayout(named="Nombre")final Equipo nom)
 	{
-		String mensaje="";
-		Equipo e = BuscarUna(nom);
-		if(e!=null)
-		{
-			removeIfNotAlready(e);		
-			getContainer().flush();
-			mensaje = "Equipo eliminado";
-		}
-		else
-			mensaje = "No se encontro equipo "+nom;
-		
-        return mensaje;
+		removeIfNotAlready(nom);		
+		getContainer().flush();
+        return "No se encontro equipo "+nom;
 	}
 	
-	private Equipo BuscarUna (String nom)
-	{
-		return container.firstMatch(
-                new QueryDefault<>(Equipo.class, "buscarNombre", "name", nom ));
-	}
-	
+
 	public List<Equipo> ListarTodo()
 	{		
 		return container.allInstances(Equipo.class);

@@ -30,7 +30,8 @@ public class Equipo
 		this.nombre = nombre;
 	}
 
-	   public TranslatableString title() {
-	        return TranslatableString.tr("{name}", "name", getNombre());
-	    }
+	public TranslatableString title()
+	{
+		return TranslatableString.tr("{name}", "name", getNombre());
+	}
 }

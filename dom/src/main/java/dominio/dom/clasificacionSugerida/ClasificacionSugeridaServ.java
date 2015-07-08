@@ -7,7 +7,7 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
-import org.apache.isis.applib.query.QueryDefault;
+
 
 @DomainServiceLayout(menuOrder = "50")
 @DomainService(repositoryFor = ClasificacionSugerida.class)
@@ -28,20 +28,13 @@ public class ClasificacionSugeridaServ extends AbstractFactoryAndRepository
 
 			}
 	
-	public String Eliminar(@ParameterLayout(named="Nombre")final String nom)
+	public String Eliminar(@ParameterLayout(named="Nombre")final ClasificacionSugerida nom)
 	{
-		ClasificacionSugerida cs = BuscarUna(nom);
-		removeIfNotAlready(cs);		
-        getContainer().flush();
-        return "Clasificacion Eliminada";
+		removeIfNotAlready(nom);		
+		getContainer().flush();
+        return "Clasificacion Sugerida eliminada";
 	}
-	
-	private ClasificacionSugerida BuscarUna (String nom)
-	{
-		return container.firstMatch(
-                new QueryDefault<>(ClasificacionSugerida.class, "buscarNombre", "name", nom ));
-	}
-	
+		
 	public List<ClasificacionSugerida> ListarTodo()
 	{		
 		return container.allInstances(ClasificacionSugerida.class);
