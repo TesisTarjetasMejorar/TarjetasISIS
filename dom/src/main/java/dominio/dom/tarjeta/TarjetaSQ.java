@@ -8,8 +8,10 @@ import javax.jdo.annotations.PersistenceCapable;
 import org.apache.isis.applib.annotation.DomainObject;
 //import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 @javax.jdo.annotations.Queries({
+	@javax.jdo.annotations.Query(name = "listarSQResueltas", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE resuelto == :resuelto"),
 	@javax.jdo.annotations.Query(name = "listarSQAbierto", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE estado == true"),
 	@javax.jdo.annotations.Query(name = "listarSQCerrado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE estado == false"),
     @javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0"),
@@ -40,6 +42,10 @@ public class TarjetaSQ extends Tarjeta
 		this.decisionTomada = loquesea;
 	}
 	
+	public TranslatableString title()
+	{
+		return TranslatableString.tr("{name}", "name", "TarjetaSQ");
+	}
 	
 	/*
 	@Inject

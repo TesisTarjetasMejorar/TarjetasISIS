@@ -7,8 +7,10 @@ import javax.jdo.annotations.PersistenceCapable;
 import org.apache.isis.applib.annotation.DomainObject;
 //import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 
 @javax.jdo.annotations.Queries({
+	@javax.jdo.annotations.Query(name = "listarHSESResueltas", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE resuelto == :resuelto"),
 		@javax.jdo.annotations.Query(name = "listarHSESAbierto", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+"WHERE estado == true"),
 		@javax.jdo.annotations.Query(name = "listarHSESCerrado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+"WHERE estado == false"),
 	    @javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0"),
@@ -36,4 +38,8 @@ public class TarjetaHSES extends Tarjeta
 		AccionRealizada = accionRealizada;
 	}
 
+	public TranslatableString title()
+	{
+		return TranslatableString.tr("{name}", "name", "TarjetaHSES");
+	}
 }

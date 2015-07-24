@@ -37,7 +37,8 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 	   						@ParameterLayout(named="Accion Realizada") final String accRealizada,
 	   						@ParameterLayout(named="Clasificacion Sugerida") ClasificacionSugerida cs,
 	   						@Parameter(optionality = Optionality.OPTIONAL) Equipo equipo,
-	   						@ParameterLayout(named="Estado") final boolean estado ) 
+	   						@ParameterLayout(named="Estado") final boolean estado,
+	   						@ParameterLayout(named="Resuelto") final boolean resuelto ) 
 	{
 		final TarjetaHSES tHSES = container.newTransientInstance(TarjetaHSES.class);
 		tHSES.setNumTarjetaTesco(String.valueOf(numTar));
@@ -49,6 +50,7 @@ public class TarjetasHSES extends AbstractFactoryAndRepository
 		tHSES.setClasifSug(cs);
 		tHSES.setEquipo(equipo);
 		tHSES.setEstado(estado);
+		tHSES.setResuelto(resuelto);
 		container.persistIfNotAlready(tHSES);
 
 		return tHSES;

@@ -34,5 +34,14 @@ public class Consulta
 		}
 		return salida;
 	}
+	
+	public List<Tarjeta> listarTarjetasResueltas(@ParameterLayout (named="Resueltas")final boolean resuelto)
+	{
+		List<Tarjeta> salida = new ArrayList<Tarjeta>();
+		salida.addAll(container.allMatches(new QueryDefault<>(TarjetaHSES.class,"listarHSESResueltas","resuelto",resuelto)));
+		salida.addAll(container.allMatches(new QueryDefault<>(TarjetaSQ.class,"listarSQResueltas","resuelto",resuelto)));
+	
+		return salida;
+	}
 
 }

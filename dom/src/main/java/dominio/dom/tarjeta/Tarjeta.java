@@ -5,6 +5,7 @@ import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.joda.time.LocalDate;
 
 import javax.jdo.annotations.InheritanceStrategy;
@@ -26,7 +27,10 @@ public abstract class Tarjeta
 	private LugarObservacion lugarObs;
 	private Equipo equipo;
 	private boolean estado;
+	private boolean resuelto;
 	
+	
+
 	
 	@MemberOrder (sequence = "1")
 	@Column(allowsNull = "false",length = 40)
@@ -107,6 +111,18 @@ public abstract class Tarjeta
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+	
+	
+	@MemberOrder (sequence = "8")
+	@Column(allowsNull = "true")
+	public boolean isResuelto() {
+		return resuelto;
+	}
+	public void setResuelto(boolean resuelto) {
+		this.resuelto = resuelto;
+	}
+	
+
 	
 		
 }
