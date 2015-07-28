@@ -12,10 +12,11 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 
 @javax.jdo.annotations.Queries({
 	@javax.jdo.annotations.Query(name = "listarSQResueltas", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE resuelto == :resuelto"),
-	@javax.jdo.annotations.Query(name = "listarSQAbierto", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE estado == true"),
-	@javax.jdo.annotations.Query(name = "listarSQCerrado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE estado == false"),
-    @javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0"),
-    @javax.jdo.annotations.Query(name = "buscarPorFecha", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.TarjetaSQ "+"WHERE fechaCarga >= :rangoInicio && fechaCarga <= :rangoFinal")
+	@javax.jdo.annotations.Query(name = "listarSQReportado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE reportado == :reportado"),
+	@javax.jdo.annotations.Query(name = "listarSQEstado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE estado == :estado"),
+	@javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0"),
+    @javax.jdo.annotations.Query(name = "buscarPorFecha", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.TarjetaSQ "+"WHERE fechaCarga >= :rangoInicio && fechaCarga <= :rangoFinal"),
+    @javax.jdo.annotations.Query(name = "buscarPorFechaObs", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.TarjetaSQ "+"WHERE fechaObs >= :rangoInicio && fechaObs <= :rangoFinal")
     })
 
 

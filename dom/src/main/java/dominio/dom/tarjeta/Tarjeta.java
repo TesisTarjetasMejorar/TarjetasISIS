@@ -5,11 +5,11 @@ import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.joda.time.LocalDate;
 
 import javax.jdo.annotations.InheritanceStrategy;
 
+import dominio.dom.Evento.Evento;
 import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
 import dominio.dom.lugarObservacion.LugarObservacion;
@@ -26,11 +26,11 @@ public abstract class Tarjeta
 	private ClasificacionSugerida clasifSug;
 	private LugarObservacion lugarObs;
 	private Equipo equipo;
+	private Evento evento;
 	private boolean estado;
 	private boolean resuelto;
+	private boolean reportado;
 	
-	
-
 	
 	@MemberOrder (sequence = "1")
 	@Column(allowsNull = "false",length = 40)
@@ -105,6 +105,15 @@ public abstract class Tarjeta
 	
 	@MemberOrder (sequence = "7")
 	@Column(allowsNull = "true")
+	public Evento getEvento() {
+		return evento;
+	}
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+	
+	@MemberOrder (sequence = "8")
+	@Column(allowsNull = "true")
 	public boolean isEstado() {
 		return estado;
 	}
@@ -113,7 +122,7 @@ public abstract class Tarjeta
 	}
 	
 	
-	@MemberOrder (sequence = "8")
+	@MemberOrder (sequence = "9")
 	@Column(allowsNull = "true")
 	public boolean isResuelto() {
 		return resuelto;
@@ -122,6 +131,14 @@ public abstract class Tarjeta
 		this.resuelto = resuelto;
 	}
 	
+	@MemberOrder (sequence = "10")
+	@Column(allowsNull = "true")
+	public boolean isReportado() {
+		return reportado;
+	}
+	public void setReportado(boolean reportado) {
+		this.reportado = reportado;
+	}
 
 	
 		

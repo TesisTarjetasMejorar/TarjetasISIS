@@ -39,7 +39,8 @@ public class TarjetasSQ extends AbstractFactoryAndRepository
    						@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
 						@ParameterLayout(named="Equipo") final Equipo equipo,
    						@ParameterLayout(named="Estado") final boolean estado,
-   						@ParameterLayout(named="Resuelto") final boolean resuelto) 
+   						@ParameterLayout(named="Resuelto") final boolean resuelto,
+   						@ParameterLayout(named="Reportado a supervisor") final boolean reportado) 
 	{
 		final TarjetaSQ tSQ = container.newTransientInstance(TarjetaSQ.class);
 		tSQ.setNumTarjetaTesco(String.valueOf(numTar));
@@ -52,6 +53,7 @@ public class TarjetasSQ extends AbstractFactoryAndRepository
         tSQ.setEquipo(equipo);;
         tSQ.setEstado(estado);
         tSQ.setResuelto(resuelto);
+        tSQ.setReportado(reportado);
         container.persistIfNotAlready(tSQ);
 		
 		return tSQ;

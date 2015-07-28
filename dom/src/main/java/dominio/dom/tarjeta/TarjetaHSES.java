@@ -10,9 +10,9 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 @javax.jdo.annotations.Queries({
-	@javax.jdo.annotations.Query(name = "listarHSESResueltas", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaSQ "+"WHERE resuelto == :resuelto"),
-		@javax.jdo.annotations.Query(name = "listarHSESAbierto", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+"WHERE estado == true"),
-		@javax.jdo.annotations.Query(name = "listarHSESCerrado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+"WHERE estado == false"),
+		@javax.jdo.annotations.Query(name = "listarHSESResueltas", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+"WHERE resuelto == :resuelto"),
+		@javax.jdo.annotations.Query(name = "listarHSESReportado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+"WHERE reportado == :reportado"),
+		@javax.jdo.annotations.Query(name = "listarHSESEstado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+"WHERE estado == :estado"),
 	    @javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.TarjetaHSES "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0"),
 	    @javax.jdo.annotations.Query(name = "buscarPorFecha", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.TarjetaHSES "+"WHERE fechaCarga >= :rangoInicio && fechaCarga <= :rangoFinal")
 	    })

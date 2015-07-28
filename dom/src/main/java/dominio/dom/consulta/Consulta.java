@@ -23,15 +23,10 @@ public class Consulta
 	public List<Tarjeta> listarTarjetasPorEstado(@ParameterLayout (named="Estado")final boolean estado)
 	{
 		List<Tarjeta> salida = new ArrayList<Tarjeta>();
-		if(estado)
-		{
-			salida.addAll(container.allMatches(new QueryDefault<>(TarjetaHSES.class,"listarHSESAbierto")));
-			salida.addAll(container.allMatches(new QueryDefault<>(TarjetaSQ.class,"listarSQAbierto")));
-		}
-		else{
-			salida.addAll(container.allMatches(new QueryDefault<>(TarjetaHSES.class,"listarHSESCerrado")));
-			salida.addAll(container.allMatches(new QueryDefault<>(TarjetaSQ.class,"listarSQCerrado")));
-		}
+	
+			salida.addAll(container.allMatches(new QueryDefault<>(TarjetaHSES.class,"listarHSESEstado","estado",estado )));
+			salida.addAll(container.allMatches(new QueryDefault<>(TarjetaSQ.class,  "listarSQEstado","estado",estado )));
+	
 		return salida;
 	}
 	
@@ -40,6 +35,15 @@ public class Consulta
 		List<Tarjeta> salida = new ArrayList<Tarjeta>();
 		salida.addAll(container.allMatches(new QueryDefault<>(TarjetaHSES.class,"listarHSESResueltas","resuelto",resuelto)));
 		salida.addAll(container.allMatches(new QueryDefault<>(TarjetaSQ.class,"listarSQResueltas","resuelto",resuelto)));
+	
+		return salida;
+	}
+	
+	public List<Tarjeta> listarTarjetasReportadas(@ParameterLayout (named="Reportadas a Supervisor")final boolean reportado)
+	{
+		List<Tarjeta> salida = new ArrayList<Tarjeta>();
+		salida.addAll(container.allMatches(new QueryDefault<>(TarjetaHSES.class,"listarHSESReportado","reportado",reportado)));
+		salida.addAll(container.allMatches(new QueryDefault<>(TarjetaSQ.class,"listarSQReportado","reportado",reportado)));
 	
 		return salida;
 	}
