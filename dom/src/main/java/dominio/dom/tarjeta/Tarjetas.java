@@ -201,16 +201,23 @@
    limitations under the License.
 
 */
-
 package dominio.dom.tarjeta;
-import java.net.URI;
 
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.PersistenceCapable;
 
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.services.i18n.TranslatableString;
-import org.apache.isis.applib.services.linking.DeepLinkService;
+import java.util.List;
+
+import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.SemanticsOf;
+import org.apache.isis.applib.annotation.ViewModel;
+import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
 
 import dominio.dom.Evento.Evento;
@@ -218,166 +225,119 @@ import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
 import dominio.dom.lugarObservacion.LugarObservacion;
 
-import org.apache.isis.applib.annotation.DomainObject;
 
 
 
-@javax.jdo.annotations.Queries
-	({
-		@javax.jdo.annotations.Query(name = "listarResueltas", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+"WHERE resuelto == :resuelto"),
-		@javax.jdo.annotations.Query(name = "listarReportado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+"WHERE reportado == :reportado"),
-		@javax.jdo.annotations.Query(name = "listarEstado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+"WHERE estado == :estado"),
-		@javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0"),
-		@javax.jdo.annotations.Query(name = "buscarPorFecha", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.Tarjeta "+"WHERE fechaCarga >= :rangoInicio && fechaCarga <= :rangoFinal"),
-		@javax.jdo.annotations.Query(name = "buscarPorFechaObs", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.Tarjeta "+"WHERE fechaObs >= :rangoInicio && fechaObs <= :rangoFinal")
-    })
-
-
-@javax.jdo.annotations.Unique(name="Tarjeta_numTarjetaTesco_key", members = {"numTarjetaTesco"})
-
-@DomainObject(objectType = "Tarjeta", bounded = true)
-@PersistenceCapable
-//@Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
-public class Tarjeta
+@DomainServiceLayout(menuOrder = "30")
+@DomainService(repositoryFor = Tarjeta.class)
+public class Tarjetas extends AbstractFactoryAndRepository 
 {
-	private String numTarjetaTesco;
-	private LocalDate fechaReporte;
-	private LocalDate fechaCarga;
-	private String lineaNegocio;
-	private ClasificacionSugerida clasifSug;
-	private LugarObservacion lugarObs;
-	private Equipo equipo;
-	private Evento evento;
-	private String decisionTomada;
-	private boolean estado;
-	private boolean resuelto;
-	private boolean reportado;
-	
-	@MemberOrder (sequence = "1")
-	@Column(allowsNull = "false",length = 40)
-	public String getNumTarjetaTesco() 
-	{
-		return numTarjetaTesco;
-	}
-	public void setNumTarjetaTesco(String numTarjetaTesco) 
-	{
-		this.numTarjetaTesco = numTarjetaTesco;
-	}
-	
-	@MemberOrder (sequence = "2")
-	@Column(allowsNull = "false")
-	public LocalDate getFechaReporte() 
-	{
-		return fechaReporte;
-	}
-	public void setFechaReporte(LocalDate fechaReporte) 
-	{
-		this.fechaReporte = fechaReporte;
-	}
-	@MemberOrder (sequence = "3")
-	@Column(allowsNull = "false")
-	public LocalDate getFechaCarga() 
-	{
-		return fechaCarga;
-	}
-	public void setFechaCarga(LocalDate fechaCarga) 
-	{
-		this.fechaCarga = fechaCarga;
-	}
-
-	@MemberOrder (sequence = "4")
-	@Column(allowsNull = "false")
-	public LugarObservacion getLugarObs() 
-	{
-		return lugarObs;
-	}
-	public void setLugarObs(LugarObservacion lugarObs) 
-	{
-		this.lugarObs = lugarObs;
-	}
-	@MemberOrder (sequence = "5")
-	@Column(allowsNull = "true")
-	public String getLineaNegocio() 
-	{
-		return lineaNegocio;
-	}
-	public void setLineaNegocio(String lineaNegocio) 
-	{
-		this.lineaNegocio = lineaNegocio;
-	}
-	
-	@MemberOrder (sequence = "5")
-	@Column(allowsNull = "true")
-	public ClasificacionSugerida getClasifSug() {
-		return clasifSug;
-	}
-	public void setClasifSug(ClasificacionSugerida clasifSug) {
-		this.clasifSug = clasifSug;
-	}
-	
-	@MemberOrder (sequence = "6")
-    @javax.jdo.annotations.Column(name = "equipoId", allowsNull = "true")
-	public Equipo getEquipo() {
-		return equipo;
-	}
-	public void setEquipo(Equipo equipo) {
-		this.equipo = equipo;
-	}
-	
-	@MemberOrder (sequence = "7")
-	@Column(allowsNull = "true")
-	public Evento getEvento() {
-		return evento;
-	}
-	public void setEvento(Evento evento) {
-		this.evento = evento;
-	}
-	
-	@MemberOrder (sequence = "8")
-	@Column(allowsNull = "false",length = 40)
-	public String getDecicionTomada() 
-	{
-		return decisionTomada;
-	}
-
-	public void setDecicionTomada(String dct) 
-	{
-		this.decisionTomada = dct;
-	}
-	
-	public TranslatableString title()
-	{
-		return TranslatableString.tr("{name}", "name", "Tarjeta");
-	}
-	
-	@MemberOrder (sequence = "9")
-	@Column(allowsNull = "true")
-	public boolean isEstado() {
-		return estado;
-	}
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
+	@javax.inject.Inject 
+    DomainObjectContainer container;
 	
 	
-	@MemberOrder (sequence = "10")
-	@Column(allowsNull = "true")
-	public boolean isResuelto() {
-		return resuelto;
-	}
-	public void setResuelto(boolean resuelto) {
-		this.resuelto = resuelto;
-	}
-	
-	@MemberOrder (sequence = "11")
-	@Column(allowsNull = "true")
-	public boolean isReportado() {
-		return reportado;
-	}
-	public void setReportado(boolean reportado) {
-		this.reportado = reportado;
-	}
-	
-	
+	public Tarjeta Cargar(@ParameterLayout (named="Numero de tarjeta") final int numTar,
+						@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
+						@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
+						@ParameterLayout(named="Lugar de Observacion") final LugarObservacion lugarObs,
+						@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
+						@ParameterLayout(named="Decicion Tomada") final String decisionTomada,
+   						@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
+						@ParameterLayout(named="Equipo") final Equipo equipo,
+						@ParameterLayout(named="Estado") final boolean estado,
+   						@ParameterLayout(named="Evento") final Evento evento,
+   						@ParameterLayout(named="Resuelto") final boolean resuelto,
+   						@ParameterLayout(named="Reportado a supervisor") final boolean reportado) 
+	{
+		final Tarjeta tarjet = container.newTransientInstance(Tarjeta.class);
 		
+		tarjet.setNumTarjetaTesco(String.valueOf(numTar));
+		tarjet.setFechaReporte(fechaRepo);
+		tarjet.setFechaCarga(fechaCarga);
+		tarjet.setLugarObs(lugarObs);
+		tarjet.setLineaNegocio(lineaNeg);
+        tarjet.setDecicionTomada(decisionTomada);
+        tarjet.setClasifSug(cs);
+        tarjet.setEquipo(equipo);
+        hideEvento(tarjet);
+        tarjet.setEstado(estado);
+        tarjet.setEvento(evento);
+        tarjet.setResuelto(resuelto);
+        tarjet.setReportado(reportado);
+        container.persistIfNotAlready(tarjet);
+		
+		return tarjet;
+		
+	}
+	
+	@Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+	public List<Tarjeta> Modificar(@ParameterLayout(named="Num")final String num)
+	{	
+		return container.allMatches(new QueryDefault<>(Tarjeta.class,"buscarPorNum","name", num));
+	}
+	
+	public String Eliminar(@ParameterLayout(named="Num")final Tarjeta t)
+	{
+		//Tarjeta t = BuscarUna(num);
+		removeIfNotAlready(t);		
+        getContainer().flush();
+        return "Tarjeta Eliminada";
+	}
+	
+	public boolean hideCargar(
+			@ParameterLayout (named="Numero de tarjeta") final int numTar,
+			@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
+			@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
+			@ParameterLayout(named="Lugar de Observacion") final LugarObservacion lugarObs,
+			@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
+			@ParameterLayout(named="Decicion Tomada") final String decisionTomada,
+			@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
+			@ParameterLayout(named="Equipo") final Equipo equipo,
+			@ParameterLayout(named="Estado") final boolean estado,
+			@ParameterLayout(named="Evento") final Evento evento,
+			@ParameterLayout(named="Resuelto") final boolean resuelto,
+			@ParameterLayout(named="Reportado a supervisor") final boolean reportado)
+			
+	{
+		if(cs!= null || lugarObs != null || equipo != null)
+			return true;
+		return false;
+	}
+	
+	
+	private boolean hideEvento(Tarjeta t){
+		boolean bandera= false;
+		if(t.getEquipo().getNombre() =="C9")
+			bandera= true;
+		
+		return bandera;
+	}
+
+	public List<Tarjeta> ListarTodo()
+	{		
+		return container.allInstances(Tarjeta.class);
+	}
+	
+	private Tarjeta BuscarUna (String num)
+	{
+		return container.firstMatch(
+                new QueryDefault<>(Tarjeta.class, "buscarPorNum", "name", num ));
+	}
+
+	
+	@Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+	public List<Tarjeta> listarPorFechas
+			(
+			@ParameterLayout(named="Fecha Inicial") final LocalDate rangoInicial,
+			@ParameterLayout(named="Fecha Final") final LocalDate rangoFinal
+			)
+	{
+		String ini = rangoInicial.toString();
+		String fin = rangoFinal.toString();
+		return container.allMatches(new QueryDefault<>(Tarjeta.class,"buscarPorFecha","rangoInicio", ini,"rangoFinal", fin));
+		
+	}
+	
 }
