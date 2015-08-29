@@ -213,10 +213,8 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
-import org.apache.isis.applib.annotation.ViewModel;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
 
@@ -279,7 +277,6 @@ public class Tarjetas extends AbstractFactoryAndRepository
 	
 	public String Eliminar(@ParameterLayout(named="Num")final Tarjeta t)
 	{
-		//Tarjeta t = BuscarUna(num);
 		removeIfNotAlready(t);		
         getContainer().flush();
         return "Tarjeta Eliminada";
@@ -319,7 +316,8 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		return container.allInstances(Tarjeta.class);
 	}
 	
-	private Tarjeta BuscarUna (String num)
+	@SuppressWarnings("unused")
+	private Tarjeta BuscarUna (final String num)
 	{
 		return container.firstMatch(
                 new QueryDefault<>(Tarjeta.class, "buscarPorNum", "name", num ));
@@ -339,5 +337,7 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		return container.allMatches(new QueryDefault<>(Tarjeta.class,"buscarPorFecha","rangoInicio", ini,"rangoFinal", fin));
 		
 	}
+	
+	
 	
 }

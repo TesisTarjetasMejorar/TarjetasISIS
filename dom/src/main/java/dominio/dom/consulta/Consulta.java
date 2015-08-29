@@ -205,11 +205,14 @@
 package dominio.dom.consulta;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
+
+import dominio.dom.lugarObservacion.LugarObservacion;
 import dominio.dom.tarjeta.Tarjeta;
 
 @DomainServiceLayout(menuOrder = "90")
@@ -223,7 +226,7 @@ public class Consulta
 	{
 		List<Tarjeta> salida = new ArrayList<Tarjeta>();
 	
-			salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,  "listarSQEstado","estado",estado )));
+			salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,  "listarEstado","estado",estado )));
 	
 		return salida;
 	}
@@ -232,7 +235,7 @@ public class Consulta
 	{
 		List<Tarjeta> salida = new ArrayList<Tarjeta>();
 
-		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,"listarSQResueltas","resuelto",resuelto)));
+		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,"listarResueltas","resuelto",resuelto)));
 	
 		return salida;
 	}
@@ -240,9 +243,25 @@ public class Consulta
 	public List<Tarjeta> listarTarjetasReportadas(@ParameterLayout (named="Reportadas a Supervisor")final boolean reportado)
 	{
 		List<Tarjeta> salida = new ArrayList<Tarjeta>();
-		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,"listarSQReportado","reportado",reportado)));
+		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,"listarReportado","reportado",reportado)));
 	
 		return salida;
 	}
+	public List<Tarjeta> listarTarjetasPorLugarDeObservacion (@ParameterLayout (named="Lugar de observacion")final LugarObservacion lugar)
+	{
+		List<Tarjeta> salida = new ArrayList<Tarjeta>();
+		salida.addAll(container.allInstances(Tarjeta.class));
+		
+		for (int i=0; i < salida.size(); i++){
+			if (!(salida.get(i).getLugarObs().equals(lugar)))
+			{
+				salida.remove(i);
+				i--;
+			}
+		}
+
+		return salida;
+	}
+	
 
 }

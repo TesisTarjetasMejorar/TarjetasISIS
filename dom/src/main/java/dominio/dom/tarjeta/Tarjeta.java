@@ -203,21 +203,15 @@
 */
 
 package dominio.dom.tarjeta;
-import java.net.URI;
-
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.PersistenceCapable;
-
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.services.i18n.TranslatableString;
-import org.apache.isis.applib.services.linking.DeepLinkService;
 import org.joda.time.LocalDate;
-
 import dominio.dom.Evento.Evento;
 import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
 import dominio.dom.lugarObservacion.LugarObservacion;
-
 import org.apache.isis.applib.annotation.DomainObject;
 
 
@@ -376,6 +370,19 @@ public class Tarjeta
 	}
 	public void setReportado(boolean reportado) {
 		this.reportado = reportado;
+	}
+	
+
+	public boolean equals (Tarjeta a)
+	{
+		
+		boolean salida = a.getNumTarjetaTesco().equals(this.getNumTarjetaTesco());
+		return	salida;
+	}
+	
+	
+	public boolean hideEquals(Tarjeta a){
+		return true;
 	}
 	
 	

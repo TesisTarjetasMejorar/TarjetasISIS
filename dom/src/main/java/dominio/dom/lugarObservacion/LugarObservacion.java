@@ -1,7 +1,6 @@
 package dominio.dom.lugarObservacion;
 
 import javax.jdo.annotations.PersistenceCapable;
-
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Title;
@@ -42,4 +41,16 @@ public class LugarObservacion
 	        return TranslatableString.tr("{name}", "name", getNombre());
 	    }
 
+	   
+		
+		public boolean equals (LugarObservacion a)
+		{
+			return a.getNombre().equals(this.getNombre());
+		}
+		
+		public boolean hideEquals(LugarObservacion a)
+		{
+			return true;
+		}
 }
+
