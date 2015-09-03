@@ -212,6 +212,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
 
+import dominio.dom.Evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
 import dominio.dom.tarjeta.Tarjeta;
 
@@ -254,6 +255,23 @@ public class Consulta
 		
 		for (int i=0; i < salida.size(); i++){
 			if (!(salida.get(i).getLugarObs().equals(lugar)))
+			{
+				salida.remove(i);
+				i--;
+			}
+		}
+
+		return salida;
+	}
+	
+	
+	public List<Tarjeta> listarTarjetasPorEvento (@ParameterLayout (named="Evento")final Evento evento)
+	{
+		List<Tarjeta> salida = new ArrayList<Tarjeta>();
+		salida.addAll(container.allInstances(Tarjeta.class));
+		
+		for (int i=0; i < salida.size(); i++){
+			if (!(salida.get(i).getEvento().equals(evento)))
 			{
 				salida.remove(i);
 				i--;
