@@ -205,7 +205,6 @@ package dominio.dom.tarjeta;
 
 
 import java.util.List;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
@@ -217,7 +216,6 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
-
 import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
 import dominio.dom.evento.Evento;
@@ -239,7 +237,7 @@ public class Tarjetas extends AbstractFactoryAndRepository
 						@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
 						@ParameterLayout(named="Lugar de Observacion") final LugarObservacion lugarObs,
 						@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
-						@ParameterLayout(named="Decicion Tomada") final String decisionTomada,
+						@ParameterLayout(named="Decision Tomada") final String decisionTomada,
    						@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
 						@ParameterLayout(named="Equipo") final Equipo equipo,
 						@ParameterLayout(named="Estado") final boolean estado,
@@ -288,7 +286,7 @@ public class Tarjetas extends AbstractFactoryAndRepository
 			@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
 			@ParameterLayout(named="Lugar de Observacion") final LugarObservacion lugarObs,
 			@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
-			@ParameterLayout(named="Decicion Tomada") final String decisionTomada,
+			@ParameterLayout(named="Decision Tomada") final String decisionTomada,
 			@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
 			@ParameterLayout(named="Equipo") final Equipo equipo,
 			@ParameterLayout(named="Estado") final boolean estado,
@@ -323,7 +321,6 @@ public class Tarjetas extends AbstractFactoryAndRepository
                 new QueryDefault<>(Tarjeta.class, "buscarPorNum", "name", num ));
 	}
 
-	
 	@Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
 	public List<Tarjeta> listarPorFechas
