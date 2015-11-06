@@ -212,7 +212,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dominio.dom.Evento.Evento;
+import dominio.dom.evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
 import dominio.dom.tarjeta.Tarjeta;
 
@@ -227,8 +227,8 @@ public class Consulta
 	{
 		List<Tarjeta> salida = new ArrayList<Tarjeta>();
 	
-			salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,  "listarEstado","estado",estado )));
-	
+		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,  "listarEstado","estado",estado )));
+			
 		return salida;
 	}
 	

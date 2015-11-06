@@ -53,6 +53,7 @@ public class ConfigPDF
         {
 
   
+      
 			switch (field.getFullyQualifiedName())
 				{
 			case "txtNumTar": field.setValue(order.getNumTarjetaTesco());break;
@@ -62,7 +63,7 @@ public class ConfigPDF
 			case "txtClasiSuge" : field.setValue(order.getClasifSug().getNombre());break;
 			case "txtEquipo" : field.setValue(order.getEquipo().getNombre());break;
 			case "txtEvento" : field.setValue(order.getEvento().getNombre());break;
-			case "txtDecisionTomada" : field.setValue(order.getDecicionTomada());break;
+			case "txtDecisionTomada" : field.setValue(order.getDecisionTomada());break;
 			case "txtEstado" : if (order.isEstado())
 								{
 									field.setValue("Abierto");break;

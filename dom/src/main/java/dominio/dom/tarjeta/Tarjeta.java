@@ -205,13 +205,16 @@
 package dominio.dom.tarjeta;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.PersistenceCapable;
+
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.joda.time.LocalDate;
-import dominio.dom.Evento.Evento;
+
 import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
+import dominio.dom.evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
+
 import org.apache.isis.applib.annotation.DomainObject;
 
 
@@ -329,12 +332,12 @@ public class Tarjeta
 	
 	@MemberOrder (sequence = "8")
 	@Column(allowsNull = "false",length = 40)
-	public String getDecicionTomada() 
+	public String getDecisionTomada() 
 	{
 		return decisionTomada;
 	}
 
-	public void setDecicionTomada(String dct) 
+	public void setDecisionTomada(String dct) 
 	{
 		this.decisionTomada = dct;
 	}

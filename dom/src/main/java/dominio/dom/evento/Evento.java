@@ -202,7 +202,7 @@
 
 */
 
-package dominio.dom.Evento;
+package dominio.dom.evento;
 
 public enum Evento 
 {

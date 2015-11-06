@@ -218,9 +218,9 @@ import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
 
-import dominio.dom.Evento.Evento;
 import dominio.dom.clasificacionSugerida.ClasificacionSugerida;
 import dominio.dom.equipo.Equipo;
+import dominio.dom.evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
 
 
@@ -254,7 +254,7 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		tarjet.setFechaCarga(fechaCarga);
 		tarjet.setLugarObs(lugarObs);
 		tarjet.setLineaNegocio(lineaNeg);
-        tarjet.setDecicionTomada(decisionTomada);
+        tarjet.setDecisionTomada(decisionTomada);
         tarjet.setClasifSug(cs);
         tarjet.setEquipo(equipo);
         hideEvento(tarjet);
