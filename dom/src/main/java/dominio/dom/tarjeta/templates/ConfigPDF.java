@@ -3,9 +3,7 @@ package dominio.dom.tarjeta.templates;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
-import java.util.SortedSet;
 import javax.annotation.PostConstruct;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -18,18 +16,32 @@ import dominio.dom.tarjeta.Tarjeta;
 import org.apache.isis.applib.annotation.NatureOfService;
 
 
-
+/*
+ * Esta clase de servicio se utiliza para poder exportar los datos
+ * de las tarjetas a formato pdf. La misma se utilizara desde cada tarjeta
+ * danlo la opcion de descargar pdf
+ */
 @DomainService(nature = NatureOfService.VIEW_CONTRIBUTIONS_ONLY)
 public class ConfigPDF
 {
     private byte[] pdfAsBytes;
 	
+    
+    
+    /*
+     * Este metodo es en encargado de indicar cual es la plantilla
+     * de referencia, donde luego se le cargaran los datos de la tarjeta 
+     */
     @PostConstruct
     public void init() throws IOException {
         pdfAsBytes = Resources.toByteArray(Resources.getResource(this.getClass(), "newPDF.pdf"));
     }
     
-    
+    /*
+     * Este metodo es el encargado de crear el documento de pdf, teniendo en cuenta
+     * una plantilla anterior mente cargada. 
+     * Y llamando al metodo loadAndPopulateTemplate
+     */
     @MemberOrder(sequence = "10")
     public Blob descargarPDF(
             final Tarjeta order) throws Exception {
@@ -45,6 +57,12 @@ public class ConfigPDF
             return new Blob(name, mimeType, bytes);
         }
     }
+    
+    
+    /*
+     * Este metodo se encarga de incertar los datos de la tarjeta, en su correspondiente lugar
+     * de la plantilla creada
+     */
     private PDDocument loadAndPopulateTemplate(Tarjeta order) throws Exception {
         PDDocument pdfDocument = PDDocument.load(new ByteArrayInputStream(pdfAsBytes));
         PDAcroForm pdfForm = pdfDocument.getDocumentCatalog().getAcroForm();

@@ -205,16 +205,23 @@
 package dominio.dom.consulta;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
+import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
+
+import com.google.common.collect.Maps;
 
 import dominio.dom.evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
 import dominio.dom.tarjeta.Tarjeta;
+import dominio.dom.utilidades.GraficoTortaReportadas;
+import dominio.dom.utilidades.GraficoTortaResueltos;
 
 @DomainServiceLayout(menuOrder = "90")
 @DomainService(repositoryFor = Tarjeta.class)
@@ -282,4 +289,39 @@ public class Consulta
 	}
 	
 
+	public WickedChart graficoTarjetasResueltas(){
+		Map<Boolean,AtomicInteger> mapeo = Maps.newTreeMap();
+		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
+		for (Tarjeta a : lista){
+			AtomicInteger integer= mapeo.get(a.isResuelto());
+			if(integer == null) {
+				integer = new AtomicInteger();
+				mapeo.put(a.isResuelto(), integer);
+			}
+			integer.incrementAndGet();
+		}
+		return new WickedChart(new GraficoTortaResueltos(mapeo));
+	
+		
+	}
+	public WickedChart graficoTarjetasReportadas(){
+		Map<Boolean,AtomicInteger> mapeo = Maps.newTreeMap();
+		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
+		for (Tarjeta a : lista){
+			AtomicInteger integer= mapeo.get(a.isReportado());
+			if(integer == null) {
+				integer = new AtomicInteger();
+				mapeo.put(a.isReportado(), integer);
+			}
+			integer.incrementAndGet();
+		}
+		return new WickedChart(new GraficoTortaReportadas(mapeo));
+	
+		
+	}
+	
+	
+		
+		
 }
+

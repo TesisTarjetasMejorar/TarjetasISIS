@@ -1,10 +1,18 @@
 package dominio.dom.cliete;
 
+import java.util.List;
+
 import javax.jdo.annotations.PersistenceCapable;
 
+
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.RenderType;
+
 import org.apache.isis.applib.services.i18n.TranslatableString;
+
+import dominio.dom.equipo.Equipo;
 
 
 
@@ -24,6 +32,10 @@ public class Cliente {
 	private String email;
 	private String telefono;
 	private String direccion;
+	
+	
+
+	private List<Equipo> equipos;
 	
 	
 	@org.apache.isis.applib.annotation.Property(editing = Editing.ENABLED)
@@ -61,6 +73,16 @@ public class Cliente {
 	public TranslatableString title()
 	{
 		return TranslatableString.tr("{name}", "name", getNombre());
+	}
+	
+
+	@javax.jdo.annotations.Column(allowsNull = "true")
+	@CollectionLayout(render = RenderType.EAGERLY)
+	public List<Equipo> getEquipos() {
+		return equipos;
+	}
+	public void setEquipos(List<Equipo> equipos) {
+		this.equipos = equipos;
 	}
 	
 	

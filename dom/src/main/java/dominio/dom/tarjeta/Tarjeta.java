@@ -235,7 +235,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 @DomainObject(objectType = "Tarjeta", bounded = true)
 @PersistenceCapable
 //@Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
-public class Tarjeta
+public class Tarjeta  implements Comparable<Tarjeta>
 {
 	private String numTarjetaTesco;
 	private LocalDate fechaReporte;
@@ -386,6 +386,11 @@ public class Tarjeta
 	
 	public boolean hideEquals(Tarjeta a){
 		return true;
+	}
+	@Override
+	public int compareTo(Tarjeta o) {
+		
+		return (this.numTarjetaTesco.compareTo(o.getNumTarjetaTesco()));
 	}
 	
 	

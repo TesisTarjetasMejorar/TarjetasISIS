@@ -23,7 +23,6 @@
     <artifactId>TarjetasMejorar</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Simple App</name>
 
     <packaging>pom</packaging>
 
@@ -366,6 +365,10 @@
 
   <modules>
     <module>dom</module>
+    
     <module>webapp</module>
+    
+    <module>fixture</module>
   </modules>
+  <name>TarjetasISIS</name>
 </project>

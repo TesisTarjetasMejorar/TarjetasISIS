@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>TarjetasMejorar-dom</artifactId>
-    <name>Simple App DOM</name>
+    <name>DOM</name>
 
     <build>
         <resources>
@@ -100,11 +100,26 @@
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-applib</artifactId>
         </dependency>
+        
+        
+    <dependency>
+    	<groupId>org.isisaddons.wicket.wickedcharts</groupId>
+   		<artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+    	<version>1.9.0</version>
+	</dependency>
+	
 	<dependency>
   		<groupId>org.apache.pdfbox</groupId>
   		<artifactId>pdfbox</artifactId>
   		<version>1.8.10</version>
 	</dependency>
+	
+	<dependency>
+    <groupId>org.isisaddons.wicket.wickedcharts</groupId>
+    <artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+    <version>1.9.0</version>
+</dependency>
+
         <dependency>
             <groupId>org.apache.isis.core</groupId>
             <artifactId>isis-core-unittestsupport</artifactId>

@@ -222,16 +222,21 @@ import dominio.dom.evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
 
 
-
+/*
+ * Clase Servicio para Tarjetas, en esta clase se encuentran las 
+ * acciones que pueden realizar los usuarios con las tarjetas
+ */
 
 @DomainServiceLayout(menuOrder = "30")
 @DomainService(repositoryFor = Tarjeta.class)
-public class Tarjetas extends AbstractFactoryAndRepository 
+public class Tarjetas extends AbstractFactoryAndRepository
 {
 	@javax.inject.Inject 
     DomainObjectContainer container;
 	
-	
+	/*
+	 * Carga de una tarjeta
+	 */
 	public Tarjeta Cargar(@ParameterLayout (named="Numero de tarjeta") final int numTar,
 						@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
 						@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
@@ -255,7 +260,6 @@ public class Tarjetas extends AbstractFactoryAndRepository
         tarjet.setDecisionTomada(decisionTomada);
         tarjet.setClasifSug(cs);
         tarjet.setEquipo(equipo);
-        hideEvento(tarjet);
         tarjet.setEstado(estado);
         tarjet.setEvento(evento);
         tarjet.setResuelto(resuelto);
@@ -266,20 +270,38 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		
 	}
 	
+	
+	/*
+	 * Este metodo es utilidazo para mostrar una tarjeta concretamente 
+	 * especificada por el usuario
+	 */
 	@Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-	public List<Tarjeta> Modificar(@ParameterLayout(named="Num")final String num)
+	public Tarjeta Modificar(@ParameterLayout(named="Tarjeta")final Tarjeta tarjeta)
 	{	
-		return container.allMatches(new QueryDefault<>(Tarjeta.class,"buscarPorNum","name", num));
+		return tarjeta;
 	}
 	
-	public String Eliminar(@ParameterLayout(named="Num")final Tarjeta t)
+	/*
+	 * Este metodo te permite eliminar
+	 * de forma permanente la tarjeta selecionada
+	 */
+	public String Eliminar(@ParameterLayout(named="Tarjeta")final Tarjeta t)
 	{
 		removeIfNotAlready(t);		
         getContainer().flush();
         return "Tarjeta Eliminada";
 	}
 	
+	/*
+	 * Este metodo se utiliza para poder ocultar la opcion de cargar una tarjeta 
+	 * estando en cualquier otro objeto relacionado con la tarjeta
+	 * Dado que el framework de trabajo interpteta los objetos que son propiedades
+	 * de tarjeta, que pueden cargar ellos mismos una tarjeta enviandoce como parametro.
+	 * Por ello con este metodo, se limita los lugares donde se pueden cargar 
+	 * las tarjetas
+	 *
+	 */
 	public boolean hideCargar(
 			@ParameterLayout (named="Numero de tarjeta") final int numTar,
 			@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
@@ -301,26 +323,19 @@ public class Tarjetas extends AbstractFactoryAndRepository
 	}
 	
 	
-	private boolean hideEvento(Tarjeta t){
-		boolean bandera= false;
-		if(t.getEquipo().getNombre() =="C9")
-			bandera= true;
-		
-		return bandera;
-	}
-
+	/*
+	 * Metodo para poder listar todas las tarjetas cargadas
+	 */
 	public List<Tarjeta> ListarTodo()
 	{		
 		return container.allInstances(Tarjeta.class);
 	}
 	
-	@SuppressWarnings("unused")
-	private Tarjeta BuscarUna (final String num)
-	{
-		return container.firstMatch(
-                new QueryDefault<>(Tarjeta.class, "buscarPorNum", "name", num ));
-	}
 
+
+	/*
+	 * Metodo utilizado para buscar tarjetas en un determinado rango de fechasa
+	 */
 	@Action(semantics = SemanticsOf.SAFE)
     @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
 	public List<Tarjeta> listarPorFechas
@@ -334,6 +349,9 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		return container.allMatches(new QueryDefault<>(Tarjeta.class,"buscarPorFecha","rangoInicio", ini,"rangoFinal", fin));
 		
 	}
+
+
+
 	
 	
 	

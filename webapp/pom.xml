@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>TarjetasMejorar-webapp</artifactId>
-    <name>Simple App Webapp</name>
+    <name>Webapp</name>
 
     <description>This module runs both the Wicket viewer and the Restfulobjects viewer in a single webapp configured to run using the datanucleus object store.</description>
 
@@ -236,6 +236,12 @@
           </exclusions>
         </dependency>
 
+
+        <dependency>
+        	<groupId>TarjetasMejorar</groupId>
+        	<artifactId>TarjetasMejorar-fixture</artifactId>
+        	<version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <profiles>

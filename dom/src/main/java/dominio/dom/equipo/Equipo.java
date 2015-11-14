@@ -205,19 +205,31 @@
 
 package dominio.dom.equipo;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.VersionStrategy;
+import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.services.i18n.TranslatableString;
+
 
 @javax.jdo.annotations.Queries
 ({
     @javax.jdo.annotations.Query(name = "buscarNombre", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.equipo "+ "WHERE nombre.indexOf(:name) >= 0 ")
 })
 @javax.jdo.annotations.Unique(name="Equipo_nombre_key", members = {"nombre"})
+@javax.jdo.annotations.Version(
+        strategy=VersionStrategy.VERSION_NUMBER, 
+        
+        column="version")
+
+@DomainObjectLayout(
+        bookmarking = BookmarkPolicy.AS_ROOT
+)
 
 @DomainObject(objectType = "Equipo", bounded = true)
 @PersistenceCapable
-public class Equipo 
+public class Equipo implements Comparable<Equipo>
 {
 	private String nombre;
 
@@ -237,5 +249,16 @@ public class Equipo
 	public TranslatableString title()
 	{
 		return TranslatableString.tr("{name}", "name", getNombre());
+	}
+
+	@Override
+	public int compareTo(Equipo o) {
+		
+		return this.nombre.compareTo(o.getNombre());
+	}
+
+	@Override
+	public String toString() {
+		return "Equipo: " + nombre;
 	}
 }

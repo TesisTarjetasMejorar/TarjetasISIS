@@ -204,12 +204,16 @@
 
 package dominio.dom.equipo;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
+
+import dominio.dom.cliete.Cliente;
 
 
 @DomainServiceLayout(menuOrder = "70")
@@ -219,14 +223,15 @@ public class Equipos extends AbstractFactoryAndRepository
 	@javax.inject.Inject 
     DomainObjectContainer container;
 	
-	public String Cargar(@ParameterLayout (named="Nombre") final String nombre)			
+	public Equipo Cargar(@ParameterLayout (named="Nombre") final String nombre)			
 		{
 			final Equipo equi = container.newTransientInstance(Equipo.class);
 			equi.setNombre(nombre);
 			container.persistIfNotAlready(equi);
 
-			return "Equipo cargado correctamente";
+			return equi;
 		}
+	
 	
 	public String Eliminar(@ParameterLayout(named="Nombre")final Equipo nom)
 	{
@@ -239,6 +244,31 @@ public class Equipos extends AbstractFactoryAndRepository
 	public List<Equipo> ListarTodo()
 	{		
 		return container.allInstances(Equipo.class);
+	}
+	
+	
+	
+	public Cliente AgregarEquipo(@ParameterLayout(named="Equipo") final Equipo equipo, final Cliente c){
+		if (c.getEquipos() != null){
+			if(!c.getEquipos().contains(equipo)){
+				c.getEquipos().add(equipo);
+			}
+		}else
+		{
+			c.setEquipos(new ArrayList<Equipo>());
+			c.getEquipos().add(equipo);
+		}
+		
+		
+		return c;
+	}
+	public boolean hideAgregarEquipo(@ParameterLayout(named="Equipo") final Equipo equipo, final Cliente c){
+
+		if(c!= null)
+			return false;
+		return true;
+		
+		
 	}
 
 }
