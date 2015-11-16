@@ -1,5 +1,6 @@
 package dominio.dom.cliete;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,22 +49,35 @@ public class Clientes extends AbstractFactoryAndRepository
 	public List<Cliente> ListarTodo()
 	{		
 		return container.allInstances(Cliente.class);
+	}	
+	
+	
+	public List<Equipo> QuitarEquipo(final Cliente c){
+		return c.getEquipos();
 	}
-	
-	
-//	public void AgregarEquipo(@ParameterLayout(named="Equipo") final Equipo equipo, final Cliente c){
-//		if (c.getEquipos() != null){
-//			if(!c.getEquipos().contains(equipo)){
-//				c.getEquipos().add(equipo);
-//			}
-//		}else
-//		{
-//			c.setEquipos(new ArrayList<Equipo>());
-//			c.getEquipos().add(equipo);
-//		}
-//	}
-	
-	
-	
+	public boolean hideQuitarEquipo(final Cliente c){
+		if(c== null)
+			return true;
+		return false;
+	}
+	public Cliente CargarEquipo(@ParameterLayout (named="Nombre") final String nombre, final Cliente c)			
+	{
+		final Equipo equi = container.newTransientInstance(Equipo.class);
+		equi.setNombre(nombre);
+		if (c.getEquipos()==null){
+			c.setEquipos(new ArrayList<Equipo>());
+		}
+		c.getEquipos().add(equi);
+//		container.persistIfNotAlready(c);
+		return c;
+	}
+
+
+public boolean hideCargarEquipo(@ParameterLayout (named="Nombre") final String nombre, final Cliente c)			
+{
+	if (c != null)
+		return false;
+	return true;
+}
 
 }

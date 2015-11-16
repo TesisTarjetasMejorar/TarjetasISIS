@@ -217,9 +217,13 @@ import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 
 import com.google.common.collect.Maps;
 
+import dominio.dom.cliete.Cliente;
+import dominio.dom.equipo.Equipo;
 import dominio.dom.evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
 import dominio.dom.tarjeta.Tarjeta;
+import dominio.dom.utilidades.GraficoTortaClientes;
+import dominio.dom.utilidades.GraficoTortaEventos;
 import dominio.dom.utilidades.GraficoTortaReportadas;
 import dominio.dom.utilidades.GraficoTortaResueltos;
 
@@ -289,10 +293,16 @@ public class Consulta
 	}
 	
 
-	public WickedChart graficoTarjetasResueltas(){
+	public WickedChart graficoTarjetasResueltas(@ParameterLayout (named="Cliente")final Cliente cliente){
 		Map<Boolean,AtomicInteger> mapeo = Maps.newTreeMap();
 		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
-		for (Tarjeta a : lista){
+		List<Tarjeta> aux = new ArrayList<Tarjeta>();
+		for(Tarjeta a : lista){
+			if (pertenece(a.getEquipo(), cliente)){
+				aux.add(a);
+			}
+		}
+		for (Tarjeta a : aux){
 			AtomicInteger integer= mapeo.get(a.isResuelto());
 			if(integer == null) {
 				integer = new AtomicInteger();
@@ -304,10 +314,16 @@ public class Consulta
 	
 		
 	}
-	public WickedChart graficoTarjetasReportadas(){
+	public WickedChart graficoTarjetasReportadas(@ParameterLayout (named="Cliente")final Cliente cliente){
 		Map<Boolean,AtomicInteger> mapeo = Maps.newTreeMap();
 		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
-		for (Tarjeta a : lista){
+		List<Tarjeta> aux = new ArrayList<Tarjeta>();
+		for(Tarjeta a : lista){
+			if (pertenece(a.getEquipo(), cliente)){
+				aux.add(a);
+			}
+		}
+		for (Tarjeta a : aux){
 			AtomicInteger integer= mapeo.get(a.isReportado());
 			if(integer == null) {
 				integer = new AtomicInteger();
@@ -320,8 +336,67 @@ public class Consulta
 		
 	}
 	
+	private boolean pertenece (Equipo a, Cliente c){
+		boolean salida = false;
+		for (Equipo aux : c.getEquipos()){
+			if(aux.compareTo(a)== 0){
+				salida= true;
+			}
+			
+		}
+		return salida;
+	}
+		
+
+	public WickedChart graficoTarjetasPorCliente(){
+		Map<Cliente,AtomicInteger> mapeo = Maps.newTreeMap();
+		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
+		for (Tarjeta a : lista){
+			Cliente aux = recuperarCliente(a);
+			AtomicInteger integer= mapeo.get(aux);
+			if(integer == null) {
+				integer = new AtomicInteger();
+				mapeo.put(aux, integer);
+			}
+			integer.incrementAndGet();
+		}
+		return new WickedChart(new GraficoTortaClientes(mapeo));
 	
 		
+	}
+	
+	private Cliente recuperarCliente(Tarjeta a){
+		List<Cliente> lista=  container.allInstances(Cliente.class);
+		Cliente salida = null;
+		for (Cliente c : lista){
+			if (pertenece(a.getEquipo(), c)){
+				salida = c;
+			}
+		}
 		
+		return salida;
+	}
+	public WickedChart graficoInsidentesPorCliente(@ParameterLayout (named="Cliente")final Cliente cliente){
+		Map<Evento,AtomicInteger> mapeo = Maps.newTreeMap();
+		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
+		List<Tarjeta> aux = new ArrayList<Tarjeta>();
+		for(Tarjeta a : lista){
+			if (pertenece(a.getEquipo(), cliente)){
+				aux.add(a);
+			}
+		}
+		for (Tarjeta a : aux){
+			AtomicInteger integer= mapeo.get(a.getEvento());
+			if(integer == null) {
+				integer = new AtomicInteger();
+				mapeo.put(a.getEvento(), integer);
+			}
+			integer.incrementAndGet();
+		}
+		return new WickedChart(new GraficoTortaEventos(mapeo));
+	
+	
+		
+	}
 }
 

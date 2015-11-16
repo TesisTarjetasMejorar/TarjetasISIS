@@ -2,14 +2,15 @@ package dominio.dom.cliete;
 
 import java.util.List;
 
+import javax.jdo.annotations.Element;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
-
+import javax.jdo.annotations.Persistent;
 
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.RenderType;
-
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 import dominio.dom.equipo.Equipo;
@@ -25,7 +26,7 @@ import dominio.dom.equipo.Equipo;
 
 @DomainObject(objectType = "Cliente", bounded = true)
 @PersistenceCapable
-public class Cliente {
+public class Cliente implements Comparable<Cliente>{
 
 	
 	private String nombre;
@@ -34,7 +35,9 @@ public class Cliente {
 	private String direccion;
 	
 	
-
+	@Persistent(table="CLIENTE_EQUIPO")
+	@Join(column="CLIENTE_ID_OID")
+	@Element(column="EQUIPO_ID_EID")
 	private List<Equipo> equipos;
 	
 	
@@ -83,6 +86,11 @@ public class Cliente {
 	}
 	public void setEquipos(List<Equipo> equipos) {
 		this.equipos = equipos;
+	}
+	@Override
+	public int compareTo(Cliente o) {
+		int salida = this.nombre.compareTo(o.getNombre());
+		return salida;
 	}
 	
 	
