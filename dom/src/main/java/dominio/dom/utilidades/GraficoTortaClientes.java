@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.Cursor;
 import com.googlecode.wickedcharts.highcharts.options.DataLabels;
+import com.googlecode.wickedcharts.highcharts.options.Function;
 import com.googlecode.wickedcharts.highcharts.options.Options;
 import com.googlecode.wickedcharts.highcharts.options.PlotOptions;
 import com.googlecode.wickedcharts.highcharts.options.PlotOptionsChoice;
@@ -26,7 +27,7 @@ import dominio.dom.cliete.Cliente;
 
 public class GraficoTortaClientes extends Options {
 	private static final long serialVersionUID = 1L;
-	
+	//*********************************************************************************
 	public GraficoTortaClientes(Map<Cliente, AtomicInteger> a){
 		setChartOptions(new ChartOptions()
         .setPlotBackgroundColor(new NullColor())
@@ -34,14 +35,14 @@ public class GraficoTortaClientes extends Options {
         .setPlotShadow(Boolean.FALSE));
     
     setTitle(new Title("Grafico Tarjetas por Cliente"));
-
+  //*********************************************************************************
     PercentageFormatter formatter = new PercentageFormatter();
     setTooltip(
             new Tooltip()
                 .setFormatter(
                         formatter)
                 .       setPercentageDecimals(1));
-
+//*********************************************************************************
     setPlotOptions(new PlotOptionsChoice()
         .setPie(new PlotOptions()
         .setAllowPointSelect(Boolean.TRUE)
@@ -51,13 +52,17 @@ public class GraficoTortaClientes extends Options {
         .setColor(new HexColor("#000000"))
         .setConnectorColor(new HexColor("#000000"))
         .setFormatter(formatter))));
-
+  //*********************************************************************************
     Series<Point> series = new PointSeries()
         .setType(SeriesType.PIE);
+    series.setTooltip(
+            new Tooltip().setFormatter(new Function().setFunction(" return ''+ Pepe +': '+ Juan;")));
+  //*********************************************************************************
     int i=0;
     for (Map.Entry<Cliente, AtomicInteger> entry : a.entrySet()) {
         series
         .addPoint(
+        		//*********************************************************************************
                 new Point(entry.getKey().getNombre(), entry.getValue().get()).setColor(
                         new RadialGradient()
                             .setCx(0.5)
@@ -65,6 +70,7 @@ public class GraficoTortaClientes extends Options {
                             .setR(0.7)
                                 .addStop(0, new HighchartsColor(i))
                                 .addStop(1, new HighchartsColor(i).brighten(-0.3f))));
+        		//*********************************************************************************
         i++;
     }
     addSeries(series);

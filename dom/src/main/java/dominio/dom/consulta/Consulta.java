@@ -222,6 +222,7 @@ import dominio.dom.equipo.Equipo;
 import dominio.dom.evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
 import dominio.dom.tarjeta.Tarjeta;
+import dominio.dom.utilidades.GraficoTortaBarras;
 import dominio.dom.utilidades.GraficoTortaClientes;
 import dominio.dom.utilidades.GraficoTortaEventos;
 import dominio.dom.utilidades.GraficoTortaReportadas;
@@ -398,5 +399,55 @@ public class Consulta
 	
 		
 	}
+	
+	public WickedChart graficoTarjetasBarras(@ParameterLayout (named="Cliente")final Cliente cliente){
+		Map<String,AtomicInteger> mapeo = Maps.newTreeMap();
+		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
+		List<Tarjeta> aux = new ArrayList<Tarjeta>();
+		for(Tarjeta a : lista){
+			if (pertenece(a.getEquipo(), cliente)){
+				aux.add(a);
+			}
+		}
+
+		String auxi = "";
+		for (Tarjeta a : aux){
+			auxi = mesesPorTarjeta(a);
+			AtomicInteger integer= mapeo.get(auxi);
+			if(integer == null) {
+				integer = new AtomicInteger();
+			}
+			mapeo.put(auxi, integer);
+			integer.incrementAndGet();
+			
+		}
+		return new WickedChart(new GraficoTortaBarras(mapeo));
+	
+		
+	}
+	private String mesesPorTarjeta(Tarjeta a){
+
+		int mes = a.getFechaCarga().getMonthOfYear();
+		
+		String salida= " ";
+		switch (mes){
+		case 1: salida= "01- Enero";break;
+		case 2: salida= "02- Febrero";break;
+		case 3: salida= "03- Marzo";break;
+		case 4: salida= "04- Abril";break;
+		case 5: salida= "05- Mayo";break;
+		case 6: salida= "06- Junio";break;
+		case 7: salida= "07- Julio";break;
+		case 8: salida= "08- Agosto";break;
+		case 9: salida= "09- Septiembre";break;
+		case 10:salida= "10- Octubre";break;
+		case 11:salida= "11- Noviembre";break;
+		case 12:salida= "12- Diciembre";break;
+		
+		
+		}
+		return salida;
+	}
+	
 }
 

@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 import dominio.dom.equipo.Equipo;
-import dominio.dom.fixture.modules.simple.CreadorEquipos;
-import dominio.dom.fixture.modules.simple.EquiposTearDown;
 
 
 public class RecrearEquipo extends FixtureScript{
@@ -50,13 +48,14 @@ public class RecrearEquipo extends FixtureScript{
             throw new IllegalArgumentException(String.format("number must be in range [0,%d)", NAMES.size()));
         }
         
-        ec.executeChild(this, new EquiposTearDown());
+//        ec.executeChild(this, new EquiposTearDown());
         
-        for (int i = 0; i < number; i++) {
-            final CreadorEquipos fs = new CreadorEquipos().setNombre(NAMES.get(i));
-            ec.executeChild(this, fs.getNombre(), fs);
-            
-            equipos.add(fs.getEquipo());
+//        for (int i = 0; i < number; i++) 
+        {
+//            final CreadorEquipos fs = new CreadorEquipos().setNombre(NAMES.get(i));
+//            ec.executeChild(this, fs.getNombre(), fs);
+//            
+//            equipos.add(fs.getEquipo());
         
         	
         }

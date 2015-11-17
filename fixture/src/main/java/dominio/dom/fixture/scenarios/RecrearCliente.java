@@ -52,7 +52,6 @@ public class RecrearCliente extends FixtureScript{
 		
         for (int i = 0; i < 4; i++) {
            cliente = wrap(clietnesFactory.Cargar(NOMBRES.get(i), TELEFONO.get(i), CORREO.get(i), DIRECCION.get(i)));
-           clietnesFactory.CargarEquipo(NOMBRES_EQUIPOS.get(i), cliente);
            ec.addResult(this, cliente);
         }
        

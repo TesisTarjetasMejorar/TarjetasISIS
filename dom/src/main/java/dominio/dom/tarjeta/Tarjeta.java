@@ -390,7 +390,7 @@ public class Tarjeta  implements Comparable<Tarjeta>
 	@Override
 	public int compareTo(Tarjeta o) {
 		
-		return (this.numTarjetaTesco.compareTo(o.getNumTarjetaTesco()));
+		return (this.fechaCarga.getMonthOfYear() - o.getFechaCarga().getMonthOfYear());
 	}
 	
 	

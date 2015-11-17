@@ -1,8 +1,10 @@
 package dominio.dom.utilidades;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-
+import com.googlecode.wickedcharts.highcharts.options.Axis;
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.Cursor;
 import com.googlecode.wickedcharts.highcharts.options.DataLabels;
@@ -22,17 +24,21 @@ import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
 
 
-public class GraficoTortaResueltos extends Options {
+public class GraficoTortaBarras extends Options {
 	private static final long serialVersionUID = 1L;
 	
-	public GraficoTortaResueltos(Map<Boolean, AtomicInteger> a){
+	public GraficoTortaBarras(Map<String, AtomicInteger> a){
+	
 		setChartOptions(new ChartOptions()
         .setPlotBackgroundColor(new NullColor())
         .setPlotBorderWidth(null)
         .setPlotShadow(Boolean.FALSE));
     
-    setTitle(new Title("Grafico Tarjetas Resueltas"));
+    setTitle(new Title("Grafico Tarjetas por Cliente"));
 
+    setSubtitle(new Title("Los meses que no aparecen, es por que no se registran cargas de tarjetas"));
+    
+    
     PercentageFormatter formatter = new PercentageFormatter();
     setTooltip(
             new Tooltip()
@@ -49,34 +55,40 @@ public class GraficoTortaResueltos extends Options {
         .setColor(new HexColor("#000000"))
         .setConnectorColor(new HexColor("#000000"))
         .setFormatter(formatter))));
-
+    //*********************************************************************************
     Series<Point> series = new PointSeries()
-        .setType(SeriesType.PIE);
+        .setType(SeriesType.COLUMN);
+    List<String> titles = new ArrayList<String>();
+    
+
+    //*********************************************************************************
+  
     int i=0;
-    for (Map.Entry<Boolean, AtomicInteger> entry : a.entrySet()) {
+    for (Map.Entry<String, AtomicInteger> entry : a.entrySet()) {
         series
         .addPoint(
-                new Point(nombre(entry.getKey()), entry.getValue().get()).setColor(
+                new Point(entry.getKey(), entry.getValue().get()).setColor(
                         new RadialGradient()
                             .setCx(0.5)
                             .setCy(0.3)
                             .setR(0.7)
                                 .addStop(0, new HighchartsColor(i))
                                 .addStop(1, new HighchartsColor(i).brighten(-0.3f))));
+
+        titles.add(""+entry.getKey());
         i++;
     }
+    
+    this.setxAxis(new Axis().setCategories(titles));
+
+ 
+
+    //*********************************************************************************
     addSeries(series);
 	}
 	
+
 	
-	
-	private String nombre (boolean a){
-		String salida= "";
-		if(a== true)
-			salida= "Resueltas";
-		else
-			salida = "No Resueltas";
-		return salida;
-	}
+
 }
 
