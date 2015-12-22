@@ -204,11 +204,15 @@
 package dominio.dom.lugarObservacion;
 
 import java.util.List;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+
+import dominio.dom.regex.RegexValidation;
 
 
 @DomainServiceLayout(menuOrder = "60")
@@ -219,7 +223,8 @@ public class LugaresObservaciones extends AbstractFactoryAndRepository
     DomainObjectContainer container;
 	
 	
-	public LugarObservacion Cargar(@ParameterLayout (named="Nombre") final String nombre,
+	public LugarObservacion Cargar(
+			@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaPalabra.PALABRAINICIALMAYUSCULA )final String nombre,
 			@ParameterLayout (named="Descripcion") final String descripcion)				
 		{
 			final LugarObservacion lObs = container.newTransientInstance(LugarObservacion.class);

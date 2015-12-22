@@ -2,10 +2,14 @@ package dominio.dom.email;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NatureOfService;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.services.email.EmailService;
+
 import dominio.dom.cliete.Cliente;
 
 
@@ -27,11 +31,12 @@ public class Email {
 	 * Este metodo es el encargado de armar el mail con los datos que se deseen agregar
 	 *
 	 */
-	public String enviarEmail(final Cliente cliente){
+	public String enviarEmail(final Cliente cliente,@ParameterLayout (named="Asunto") final String asunto,
+													@ParameterLayout (named="Mensaje") final String mensaje){
 		List<String> to = new ArrayList<String>();
 		to.add(cliente.getEmail());
-		String body = "Cliente: "+cliente.getNombre()+" direcccion: "+cliente.getDireccion();
-		email.send(to, null, null, "Mail de registro a nustra aplicacion", body, (javax.activation.DataSource[])null);
+		String body = mensaje;
+		email.send(to, null, null, asunto, body, (javax.activation.DataSource[])null);
 		return "Email enviado!!!.....";
 	}
 }
