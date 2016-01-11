@@ -205,11 +205,15 @@
 
 package dominio.dom.clasificacionSugerida;
 import java.util.List;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+
+import dominio.dom.regex.RegexValidation;
 
 @DomainServiceLayout(menuOrder = "50")
 @DomainService(repositoryFor = ClasificacionSugerida.class)
@@ -218,7 +222,7 @@ public class ClasificacionSugeridaServ extends AbstractFactoryAndRepository
 	@javax.inject.Inject 
     DomainObjectContainer container;
 	
-	public ClasificacionSugerida Cargar(@ParameterLayout (named="Nombre") final String nombre,
+	public ClasificacionSugerida Cargar(@ParameterLayout (named="Nombre")@Parameter(regexPattern = RegexValidation.ValidaPalabra.PALABRAINICIALMAYUSCULA ) final String nombre,
 				@ParameterLayout (named="Descripcion") final String descripcion)				
 			{
 				final ClasificacionSugerida clasi = container.newTransientInstance(ClasificacionSugerida.class);
