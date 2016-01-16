@@ -203,7 +203,10 @@
 */
 package dominio.dom.lugarObservacion;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.jasperreports.engine.JRException;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
@@ -213,6 +216,7 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 
 import dominio.dom.regex.RegexValidation;
+import dominio.dom.reporte.Reporte;
 
 
 @DomainServiceLayout(menuOrder = "60")
@@ -248,4 +252,15 @@ public class LugaresObservaciones extends AbstractFactoryAndRepository
 		return container.allInstances(LugarObservacion.class);
 	}
 
+	public String reporteLugar() throws JRException{
+		List<LugarObservacion> datos = container.allInstances(LugarObservacion.class);
+		
+		Reporte.generarReporte("reportes/report1.jrxml", datos, "test.pdf");
+		
+		return "Reporte generado";
+	}
+	
+
+	
+	
 }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="572" pageHeight="752" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1747fc46-54e1-4676-a446-33510d35f621">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="120"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#FF4500">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#FFD1BF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dataset1" uuid="95b42ada-0ebf-40b8-af7c-306ade01a055"/>
+	<subDataset name="Table Dataset 1" uuid="b31634c6-f125-4208-aca1-13098bf7bd5b"/>
+	<subDataset name="Table Dataset 2" uuid="a692c2ef-3696-4503-b04e-fd1b4ee286f6"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<background>
+		<band height="752" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement uuid="f7c3423e-03be-421e-abfa-63709b0083bb" x="372" y="0" width="200" height="64"/>
+				<imageExpression><![CDATA["/home/niko/workspace-tesis/TarjetasISIS/webapp/src/main/webapp/about/images/mejorarLogo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="427ff01d-c3bf-422b-9d6a-188ad704ffe4" x="10" y="0" width="524" height="38"/>
+				<textElement>
+					<font fontName="SansSerif" size="24"/>
+				</textElement>
+				<text><![CDATA[Reporte Lugares De Observacion]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="404cb898-fefb-4967-bf0a-f64d23ec3ad6" x="30" y="1" width="130" height="20" backcolor="#FF9900"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="5cdc0b3e-5a0c-4527-b9dd-33d2a3c8ca6e" x="160" y="1" width="402" height="20" backcolor="#FF9900"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="854be360-ced2-4f90-9690-db16ac09c59c" x="177" y="1" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Descripcion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="75bdf876-8230-41a7-adc7-ffc6fa74651b" x="43" y="3" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="404cb898-fefb-4967-bf0a-f64d23ec3ad6" x="30" y="1" width="130" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="5cdc0b3e-5a0c-4527-b9dd-33d2a3c8ca6e" x="160" y="1" width="402" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="3384adf4-01ba-4eff-9b91-af340e46b6bb" x="177" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ada5ede6-ecab-4be6-9be2-1f07c0a813c9" x="45" y="3" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4a34d956-6273-49a8-8bd9-eb800418bf43" x="524" y="8" width="38" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
