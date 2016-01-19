@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarjetaReporte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="577ee9f8-6acc-4516-b29d-ae1511d2d7cd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="124"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="clasifSug" class="java.lang.String">
+		<fieldDescription><![CDATA[clasifSug]]></fieldDescription>
+	</field>
+	<field name="decisionTomada" class="java.lang.String">
+		<fieldDescription><![CDATA[decisionTomada]]></fieldDescription>
+	</field>
+	<field name="equipo" class="java.lang.String">
+		<fieldDescription><![CDATA[equipo]]></fieldDescription>
+	</field>
+	<field name="estado" class="java.lang.String">
+		<fieldDescription><![CDATA[estado]]></fieldDescription>
+	</field>
+	<field name="evento" class="java.lang.String">
+		<fieldDescription><![CDATA[evento]]></fieldDescription>
+	</field>
+	<field name="fechaCarga" class="java.lang.String">
+		<fieldDescription><![CDATA[fechaCarga]]></fieldDescription>
+	</field>
+	<field name="fechaReporte" class="java.lang.String">
+		<fieldDescription><![CDATA[fechaReporte]]></fieldDescription>
+	</field>
+	<field name="lineaNegocio" class="java.lang.String">
+		<fieldDescription><![CDATA[lineaNegocio]]></fieldDescription>
+	</field>
+	<field name="lugarObs" class="java.lang.String">
+		<fieldDescription><![CDATA[lugarObs]]></fieldDescription>
+	</field>
+	<field name="numTarjetaTesco" class="java.lang.String">
+		<fieldDescription><![CDATA[numTarjetaTesco]]></fieldDescription>
+	</field>
+	<field name="reportado" class="java.lang.String">
+		<fieldDescription><![CDATA[reportado]]></fieldDescription>
+	</field>
+	<field name="resuelto" class="java.lang.String">
+		<fieldDescription><![CDATA[resuelto]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="919a0d00-7316-498d-a9a3-f5c5e91ec863" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tarjera]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5636c1b3-6592-4f92-8167-db1de31a9666" x="430" y="0" width="125" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{numTarjetaTesco}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement uuid="98f4a54a-5467-49a8-adcb-09861b416635" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaCarga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="65fe0d5d-be17-4250-81fa-bff3433e9967" x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaReporte}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="89" splitType="Stretch">
+			<textField>
+				<reportElement uuid="571976e4-d01c-4659-8335-4b3c0b32be6e" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{lugarObs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="342791e9-ceaa-4f9d-b5be-703b09aec2f9" x="0" y="52" width="135" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{decisionTomada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d29f447d-648a-46b8-b8c5-eb94b31cc158" x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{clasifSug}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b8eb035c-2fb2-4537-9f11-33838626c3cd" x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{equipo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="29b531fc-36a2-4b65-8c20-4938f14b54bc" x="16" y="87" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a99656ce-e1fc-40d7-8f06-d424a7d1801a" x="447" y="82" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{evento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="434c4dcd-46d2-4c25-86d8-f8e6a6be9165" x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{resuelto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="71a47a68-e462-4767-a915-d058b6c2d5ad" x="200" y="105" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{reportado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

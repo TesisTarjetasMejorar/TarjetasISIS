@@ -204,6 +204,8 @@
 package dominio.dom.lugarObservacion;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRException;
@@ -254,10 +256,14 @@ public class LugaresObservaciones extends AbstractFactoryAndRepository
 
 	public String reporteLugar() throws JRException{
 		List<LugarObservacion> datos = container.allInstances(LugarObservacion.class);
+		Date date = Calendar.getInstance().getTime();
 		
-		Reporte.generarReporte("reportes/report1.jrxml", datos, "test.pdf");
+		String fecha = "";
+		String nombre = "Reporte Lugar de Obvservacion "+fecha;
 		
-		return "Reporte generado";
+		Reporte.generarReporte("reportes/lugarObservacionReporte.jrxml", datos,nombre);
+		
+		return "Reporte generado: "+date;
 	}
 	
 

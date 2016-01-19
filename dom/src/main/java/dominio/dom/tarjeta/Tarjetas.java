@@ -206,6 +206,8 @@ package dominio.dom.tarjeta;
 
 import java.util.List;
 
+import net.sf.jasperreports.engine.JRException;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
@@ -224,6 +226,8 @@ import dominio.dom.equipo.Equipo;
 import dominio.dom.evento.Evento;
 import dominio.dom.lugarObservacion.LugarObservacion;
 import dominio.dom.regex.RegexValidation;
+import dominio.dom.reporte.Reporte;
+import dominio.dom.reporte.TarjetaReporte;
 
 
 /*
@@ -350,6 +354,21 @@ public class Tarjetas extends AbstractFactoryAndRepository
 	{
 
 		return container.allMatches(new QueryDefault<>(Tarjeta.class,"buscarPorFecha","rangoInicio", rangoInicial,"rangoFinal", rangoFinal));
+		
+	}
+	
+	@Action(semantics = SemanticsOf.SAFE)
+    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
+	public String reporteDeTarjetas() throws JRException
+	{
+		List<Tarjeta> datos = container.allInstances(Tarjeta.class);
+
+		String fecha = "";
+		String nombre = "Reporte de tarjetas "+fecha;
+		
+		Reporte.generarReporteTarjetas("reportes/tarjetaReporte.jrxml", datos,nombre);
+		
+		return "Reporte de tarjetas generado";
 		
 	}
 
