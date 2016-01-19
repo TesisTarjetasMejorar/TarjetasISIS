@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarjetaReporte" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="577ee9f8-6acc-4516-b29d-ae1511d2d7cd">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarjetaReporte" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="577ee9f8-6acc-4516-b29d-ae1511d2d7cd">
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="124"/>
+	<property name="ireport.y" value="110"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -47,77 +47,196 @@
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
-			<staticText>
-				<reportElement uuid="919a0d00-7316-498d-a9a3-f5c5e91ec863" x="0" y="0" width="100" height="20"/>
-				<textElement/>
-				<text><![CDATA[Tarjera]]></text>
-			</staticText>
-			<textField>
-				<reportElement uuid="5636c1b3-6592-4f92-8167-db1de31a9666" x="430" y="0" width="125" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{numTarjetaTesco}]]></textFieldExpression>
-			</textField>
+			<image>
+				<reportElement uuid="19f533c7-69a0-45de-93c3-a15fe4f54122" x="571" y="0" width="231" height="79"/>
+				<imageExpression><![CDATA["/home/ezequiel/Tesis/TarjetasISIS/webapp/reportes/mejorarLogo.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
-			<textField>
-				<reportElement uuid="98f4a54a-5467-49a8-adcb-09861b416635" x="0" y="0" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{fechaCarga}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="65fe0d5d-be17-4250-81fa-bff3433e9967" x="455" y="0" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression><![CDATA[$F{fechaReporte}]]></textFieldExpression>
-			</textField>
-		</band>
+		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="89" splitType="Stretch">
-			<textField>
-				<reportElement uuid="571976e4-d01c-4659-8335-4b3c0b32be6e" x="0" y="0" width="100" height="20"/>
+		<band height="23" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="8938cd6a-9844-416a-85f7-c0137edfb9b7" x="116" y="1" width="73" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="a6fc33ab-66bc-45f4-a28c-e1a277c20e15" x="641" y="1" width="38" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="0ce12402-cf85-45f0-9873-d93b6e2676e5" x="375" y="1" width="88" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="a28f7fe7-c6c4-484e-b096-9b1fb903c3aa" x="597" y="1" width="44" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="0818ac5c-1978-4a43-a788-9f8607065811" x="552" y="1" width="45" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="229c6f21-e4c4-4cbb-82cd-92fff7873f3f" x="463" y="1" width="89" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="a43e1206-93c6-4301-b445-b7fe28aaacfb" x="245" y="1" width="76" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="e43a3287-a2a8-400e-ace9-9a3bf1a4928e" x="321" y="1" width="54" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="ca78850a-75f7-4753-afc2-97af0a22b416" x="189" y="1" width="56" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="8938cd6a-9844-416a-85f7-c0137edfb9b7" x="53" y="1" width="63" height="20"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="1d51d70d-ec46-4898-a752-f2cc18e9f580" x="53" y="2" width="63" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{lugarObs}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="342791e9-ceaa-4f9d-b5be-703b09aec2f9" x="0" y="52" width="135" height="20"/>
+				<text><![CDATA[Fecha Carga]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a4a5ebb-2798-477c-8fd6-81d343b28bdd" x="116" y="2" width="73" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{decisionTomada}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="d29f447d-648a-46b8-b8c5-eb94b31cc158" x="455" y="0" width="100" height="20"/>
+				<text><![CDATA[Fecha Reporte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2726bad0-6563-43f9-a623-471eb7b4b352" x="189" y="2" width="56" height="20"/>
 				<textElement/>
-				<textFieldExpression><![CDATA[$F{clasifSug}]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[Equipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="25291114-6509-4f4b-b50a-f0a65d8698fe" x="245" y="2" width="76" height="20"/>
+				<textElement/>
+				<text><![CDATA[L. Observacion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="77f819d1-8ac4-4548-8a4d-e91b55c405d7" x="321" y="2" width="54" height="20"/>
+				<textElement/>
+				<text><![CDATA[Reportado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="638361d2-115d-4149-ace8-dee288eb2d71" x="463" y="2" width="89" height="20"/>
+				<textElement/>
+				<text><![CDATA[Clasif. Suge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cd5b007b-b068-4f86-a9e3-e60f52d4e09f" x="375" y="2" width="88" height="20"/>
+				<textElement/>
+				<text><![CDATA[D.Tomada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b0f6ea4d-4cef-4cab-a53c-929b6446d84b" x="552" y="2" width="45" height="20"/>
+				<textElement/>
+				<text><![CDATA[Resuelto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="26972d8e-c1f1-407f-a6df-67c5261e3b10" x="597" y="2" width="44" height="20"/>
+				<textElement/>
+				<text><![CDATA[Evento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="baa18a03-4fc8-4ede-a71b-88ef68b08d4a" x="641" y="2" width="38" height="20"/>
+				<textElement/>
+				<text><![CDATA[Estado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f04c9d51-fb39-432c-8b31-6e11f9da7d09" x="0" y="2" width="53" height="20"/>
+				<textElement/>
+				<text><![CDATA[N° Tarjeta]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="125" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="ca78850a-75f7-4753-afc2-97af0a22b416" x="189" y="1" width="56" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="a43e1206-93c6-4301-b445-b7fe28aaacfb" x="245" y="1" width="76" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="e43a3287-a2a8-400e-ace9-9a3bf1a4928e" x="321" y="1" width="54" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="0ce12402-cf85-45f0-9873-d93b6e2676e5" x="375" y="1" width="88" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="229c6f21-e4c4-4cbb-82cd-92fff7873f3f" x="463" y="1" width="89" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="0818ac5c-1978-4a43-a788-9f8607065811" x="552" y="1" width="45" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="a28f7fe7-c6c4-484e-b096-9b1fb903c3aa" x="597" y="1" width="44" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="a6fc33ab-66bc-45f4-a28c-e1a277c20e15" x="641" y="1" width="38" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="8938cd6a-9844-416a-85f7-c0137edfb9b7" x="116" y="1" width="73" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="8938cd6a-9844-416a-85f7-c0137edfb9b7" x="0" y="-22" width="53" height="20"/>
+			</rectangle>
+			<rectangle>
+				<reportElement uuid="8938cd6a-9844-416a-85f7-c0137edfb9b7" x="0" y="1" width="53" height="20"/>
+			</rectangle>
 			<textField>
-				<reportElement uuid="b8eb035c-2fb2-4537-9f11-33838626c3cd" x="0" y="0" width="100" height="20"/>
+				<reportElement uuid="5636c1b3-6592-4f92-8167-db1de31a9666" x="0" y="2" width="53" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{numTarjetaTesco}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="8938cd6a-9844-416a-85f7-c0137edfb9b7" x="53" y="1" width="63" height="20"/>
+			</rectangle>
+			<textField>
+				<reportElement uuid="98f4a54a-5467-49a8-adcb-09861b416635" x="53" y="2" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaCarga}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d29f447d-648a-46b8-b8c5-eb94b31cc158" x="463" y="1" width="89" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{clasifSug}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b8eb035c-2fb2-4537-9f11-33838626c3cd" x="189" y="1" width="56" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{equipo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="29b531fc-36a2-4b65-8c20-4938f14b54bc" x="16" y="87" width="100" height="20"/>
+				<reportElement uuid="29b531fc-36a2-4b65-8c20-4938f14b54bc" x="641" y="1" width="38" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{estado}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="a99656ce-e1fc-40d7-8f06-d424a7d1801a" x="447" y="82" width="100" height="20"/>
+				<reportElement uuid="a99656ce-e1fc-40d7-8f06-d424a7d1801a" x="597" y="1" width="44" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{evento}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="434c4dcd-46d2-4c25-86d8-f8e6a6be9165" x="455" y="0" width="100" height="20"/>
+				<reportElement uuid="434c4dcd-46d2-4c25-86d8-f8e6a6be9165" x="552" y="1" width="45" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{resuelto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="71a47a68-e462-4767-a915-d058b6c2d5ad" x="200" y="105" width="100" height="20"/>
+				<reportElement uuid="342791e9-ceaa-4f9d-b5be-703b09aec2f9" x="375" y="1" width="88" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{decisionTomada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="71a47a68-e462-4767-a915-d058b6c2d5ad" x="321" y="1" width="54" height="20"/>
 				<textElement/>
 				<textFieldExpression><![CDATA[$F{reportado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="571976e4-d01c-4659-8335-4b3c0b32be6e" x="245" y="1" width="76" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{lugarObs}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="65fe0d5d-be17-4250-81fa-bff3433e9967" x="116" y="2" width="73" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{fechaReporte}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
