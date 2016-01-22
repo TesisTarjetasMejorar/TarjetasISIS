@@ -1,10 +1,5 @@
 package dominio.dom.reporte;
 
-import java.util.List;
-
-import dominio.dom.tarjeta.Tarjeta;
-
-
 
 public class TarjetaReporte {
 

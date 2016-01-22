@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarjetaReporte" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="577ee9f8-6acc-4516-b29d-ae1511d2d7cd">
-	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.zoom" value="1.1269722013523664"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="110"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -48,8 +48,8 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<image>
-				<reportElement uuid="19f533c7-69a0-45de-93c3-a15fe4f54122" x="571" y="0" width="231" height="79"/>
-				<imageExpression><![CDATA["/home/ezequiel/Tesis/TarjetasISIS/webapp/reportes/mejorarLogo.png"]]></imageExpression>
+				<reportElement uuid="41e4b0e9-125b-476b-9365-1b4da1620aba" x="389" y="0" width="290" height="67"/>
+				<imageExpression><![CDATA["/home/niko/workspace-tesis/TarjetasISIS/webapp/reportes/mejorarLogo.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

@@ -4,6 +4,8 @@ package dominio.dom.cliete;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.jasperreports.engine.JRException;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
@@ -13,6 +15,8 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 
 import dominio.dom.equipo.Equipo;
 import dominio.dom.regex.RegexValidation;
+import dominio.dom.reporte.Reporte;
+import dominio.dom.tarjeta.Tarjeta;
 
 
 
@@ -41,11 +45,11 @@ public class Clientes extends AbstractFactoryAndRepository
 		return cliente;
 	}
 	
-	public String Eliminar(@ParameterLayout(named="Nombre")final Cliente nom)
+	public List<Cliente> Eliminar(@ParameterLayout(named="Nombre")final Cliente nom)
 	{
 		removeIfNotAlready(nom);		
 		getContainer().flush();
-        return "No se encontro equipo "+nom;
+        return container.allInstances(Cliente.class);
 	}
 	
 	public List<Cliente> ListarTodo()
@@ -81,5 +85,17 @@ public boolean hideCargarEquipo(@ParameterLayout (named="Nombre") final String n
 		return false;
 	return true;
 }
+	
+	public String reporteClientes() throws JRException {
+		List<Cliente> datos = container.allInstances(Cliente.class);
+
+		String fecha = "";
+		String nombre = "Reporte de Clientes "+fecha;
+		
+		Reporte.generarReporteCliente("reportes/reporteClientes.jrxml", datos,nombre);		
+		
+		return "Se genero reporte de clientes";
+	}
+
 
 }

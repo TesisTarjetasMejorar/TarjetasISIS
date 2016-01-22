@@ -185,10 +185,14 @@ public class Reporte {
 			aux.setEmail(a.getEmail());
 			aux.setTelefono(a.getTelefono());
 			String equipo= "";
-			for( Equipo e : a.getEquipos()){
-				equipo= equipo+e.getNombre()+", ";
-			}
-			aux.setEquipo(equipo);
+			
+			
+				for( Equipo e : a.getEquipos()){
+					equipo= equipo+e.getNombre()+", ";
+				}
+				aux.setEquipo(equipo);
+			
+			salida.add(aux);
 		}
 		return salida;
 	}
