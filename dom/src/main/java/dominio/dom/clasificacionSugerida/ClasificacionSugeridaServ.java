@@ -215,7 +215,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 
 import dominio.dom.regex.RegexValidation;
 
-@DomainServiceLayout(menuOrder = "50")
+@DomainServiceLayout(menuOrder = "50",named="Clasificaciones sugeridas")
 @DomainService(repositoryFor = ClasificacionSugerida.class)
 public class ClasificacionSugeridaServ extends AbstractFactoryAndRepository 
 {
@@ -229,7 +229,6 @@ public class ClasificacionSugeridaServ extends AbstractFactoryAndRepository
 				clasi.setNombre(nombre);
 				clasi.setDescripcion(descripcion);
 				container.persistIfNotAlready(clasi);
-
 				return clasi;
 
 			}
@@ -240,10 +239,10 @@ public class ClasificacionSugeridaServ extends AbstractFactoryAndRepository
 		getContainer().flush();
         return "Clasificacion Sugerida eliminada";
 	}
-		
 	public List<ClasificacionSugerida> ListarTodo()
 	{		
 		return container.allInstances(ClasificacionSugerida.class);
 	}
+	
 
 }

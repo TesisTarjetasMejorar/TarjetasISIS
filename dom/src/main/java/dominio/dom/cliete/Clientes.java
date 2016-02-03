@@ -12,6 +12,9 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.services.memento.MementoService;
+import org.apache.isis.applib.services.memento.MementoService.Memento;
+import org.eclipse.jdt.internal.compiler.ast.Clinit;
 
 import dominio.dom.equipo.Equipo;
 import dominio.dom.regex.RegexValidation;
@@ -96,6 +99,11 @@ public boolean hideCargarEquipo(@ParameterLayout (named="Nombre") final String n
 		
 		return "Se genero reporte de clientes";
 	}
+	
+	
+	
+	@javax.inject.Inject
+	MementoService mementoService;
 
 
 }

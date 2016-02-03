@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -19,14 +18,11 @@ import net.sf.jasperreports.engine.ReportContext;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-
 import org.apache.isis.applib.DomainObjectContainer;
-
 import dominio.dom.cliete.Cliente;
 import dominio.dom.equipo.Equipo;
 import dominio.dom.lugarObservacion.LugarObservacion;
 import dominio.dom.tarjeta.Tarjeta;
-
 public class Reporte {
 
 	

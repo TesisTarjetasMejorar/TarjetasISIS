@@ -223,6 +223,7 @@ import org.apache.isis.applib.annotation.DomainObject;
 	({
 		@javax.jdo.annotations.Query(name = "listarResueltas", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+"WHERE resuelto == :resuelto"),
 		@javax.jdo.annotations.Query(name = "listarReportado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+"WHERE reportado == :reportado"),
+		@javax.jdo.annotations.Query(name = "lugaresObservacion", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+"WHERE lugarObs_LugarObservacion_ID_OID == :lo"),
 		@javax.jdo.annotations.Query(name = "listarEstado", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+"WHERE estado == :estado"),
 		@javax.jdo.annotations.Query(name = "buscarPorNum", language = "JDOQL",value = "SELECT "+ "FROM dominio.dom.Tarjeta "+ "WHERE numTarjetaTesco.indexOf(:name) >= 0"),
 		@javax.jdo.annotations.Query(name = "buscarPorFecha", language = "JDOQL",value = "SELECT "+"FROM dominio.dom.Tarjeta "+"WHERE fechaCarga >= :rangoInicio && fechaCarga <= :rangoFinal"),

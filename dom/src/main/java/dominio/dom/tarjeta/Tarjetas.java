@@ -353,6 +353,7 @@ public class Tarjetas extends AbstractFactoryAndRepository
 			)
 	{
 
+		//lugaresObservacion
 		return container.allMatches(new QueryDefault<>(Tarjeta.class,"buscarPorFecha","rangoInicio", rangoInicial,"rangoFinal", rangoFinal));
 		
 	}

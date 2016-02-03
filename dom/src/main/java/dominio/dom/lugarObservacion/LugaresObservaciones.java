@@ -203,20 +203,19 @@
 */
 package dominio.dom.lugarObservacion;
 
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import net.sf.jasperreports.engine.JRException;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
-
+import org.apache.isis.applib.services.memento.MementoService;
+import org.apache.isis.applib.services.memento.MementoService.Memento;
 import dominio.dom.regex.RegexValidation;
 import dominio.dom.reporte.Reporte;
 
@@ -265,8 +264,12 @@ public class LugaresObservaciones extends AbstractFactoryAndRepository
 		
 		return "Reporte generado: "+date;
 	}
-	
 
+	
+	@javax.inject.Inject
+	MementoService mementoService;
+
+	
 	
 	
 }
