@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.apache.isis.applib.fixturescripts.FixtureScript;
-import dominio.dom.equipo.Equipo;
+
+import dominio.dom.Equipo;
 
 
 public class RecrearEquipo extends FixtureScript{

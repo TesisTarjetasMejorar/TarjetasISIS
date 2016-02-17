@@ -46,7 +46,7 @@ import dominio.dom.fixture.scenarios.RecrearEquipo;
 public class DominioFixturesService extends FixtureScripts {
 
     public DominioFixturesService() {
-        super("dominio.dom", MultipleExecutionStrategy.EXECUTE);
+        super("dominio", MultipleExecutionStrategy.EXECUTE);
     }
 
     @Override

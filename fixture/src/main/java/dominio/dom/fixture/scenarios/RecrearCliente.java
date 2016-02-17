@@ -8,8 +8,8 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import dominio.dom.cliete.Cliente;
-import dominio.dom.cliete.Clientes;
+import servicios.Clientes;
+import dominio.dom.Cliente;
 import dominio.dom.fixture.modules.simple.ClienteTearDown;
 
 public class RecrearCliente extends FixtureScript{
