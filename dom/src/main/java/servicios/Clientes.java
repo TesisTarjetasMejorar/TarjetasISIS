@@ -3,9 +3,7 @@ package servicios;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.sf.jasperreports.engine.JRException;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
@@ -13,9 +11,10 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.services.memento.MementoService;
-
+import org.apache.isis.applib.services.memento.MementoService.Memento;
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
+import viewModel.ViewModelCliente;
 import dominio.dom.Cliente;
 import dominio.dom.Equipo;
 
@@ -27,7 +26,7 @@ public class Clientes extends AbstractFactoryAndRepository
 	@javax.inject.Inject 
     DomainObjectContainer container;
 	
-	public Cliente Cargar (@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaNombres.NOMBRE )final String nombre,
+	public ViewModelCliente Cargar (@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaNombres.NOMBRE )final String nombre,
 							@ParameterLayout (named="Telefono")@Parameter(regexPattern = RegexValidation.ValidaTel.NUMEROTEL)final String telefono,
 							@ParameterLayout (named="E-Mail")@Parameter(regexPattern = RegexValidation.ValidaMail.EMAIL) final String email,
 							@ParameterLayout (named="Direccion") @Parameter(regexPattern = RegexValidation.ValidaDireccion.DIRECCION )final String direccion)
@@ -38,11 +37,20 @@ public class Clientes extends AbstractFactoryAndRepository
 		cliente.setTelefono(telefono);
 		cliente.setDireccion(direccion);
 		cliente.setEmail(email);
-	
 		container.persistIfNotAlready(cliente);
 		
+		Memento memento = mementoService.create();
+		memento.set("nombre", nombre);
+		memento.set("telefono", telefono);
+		memento.set("direccion", direccion);
+		memento.set("email", email);
+//		memento.set("equipos", new ArrayList<Equipo>());
 		
-		return cliente;
+		
+		
+//		return cliente;
+		return container.newViewModelInstance(
+				ViewModelCliente.class, memento.asString());
 	}
 	
 	public List<Cliente> Eliminar(@ParameterLayout(named="Nombre")final Cliente nom)

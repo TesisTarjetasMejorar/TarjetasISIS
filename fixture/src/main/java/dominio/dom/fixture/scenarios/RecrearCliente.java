@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import servicios.Clientes;
+import viewModel.ViewModelCliente;
 import dominio.dom.Cliente;
 import dominio.dom.fixture.modules.simple.ClienteTearDown;
 
@@ -35,7 +36,7 @@ public class RecrearCliente extends FixtureScript{
 	 
 
 	private int cantidad;
-	 private Cliente cliente;
+	 private ViewModelCliente cliente;
 	 
 	 public int getCantidad(){
 		 return this.cantidad;
