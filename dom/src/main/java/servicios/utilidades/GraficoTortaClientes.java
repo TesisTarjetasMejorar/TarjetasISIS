@@ -22,7 +22,7 @@ import com.googlecode.wickedcharts.highcharts.options.series.Point;
 import com.googlecode.wickedcharts.highcharts.options.series.PointSeries;
 import com.googlecode.wickedcharts.highcharts.options.series.Series;
 
-import dominio.dom.Cliente;
+import dominio.Cliente;
 
 
 public class GraficoTortaClientes extends Options {

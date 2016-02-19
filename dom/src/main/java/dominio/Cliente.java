@@ -1,5 +1,7 @@
-package dominio.dom;
+package dominio;
 
+
+import java.io.Serializable;
 import java.util.List;
 
 import javax.jdo.annotations.Element;
@@ -24,8 +26,12 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 
 @DomainObject(objectType = "Cliente", bounded = true)
 @PersistenceCapable
-public class Cliente implements Comparable<Cliente>{
-
+public class Cliente implements Comparable<Cliente>, Serializable
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private String nombre;
 	private String email;

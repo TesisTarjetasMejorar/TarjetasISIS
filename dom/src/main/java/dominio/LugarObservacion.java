@@ -1,4 +1,4 @@
-package dominio.dom;
+package dominio;
 
 import javax.jdo.annotations.PersistenceCapable;
 import org.apache.isis.applib.annotation.DomainObject;

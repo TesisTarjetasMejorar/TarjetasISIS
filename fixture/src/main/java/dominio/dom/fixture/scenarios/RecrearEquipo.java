@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.isis.applib.fixturescripts.FixtureScript;
 
-import dominio.dom.Equipo;
+import dominio.Equipo;
 
 
 public class RecrearEquipo extends FixtureScript{

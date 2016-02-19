@@ -16,7 +16,7 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 
 import com.google.common.io.Resources;
 
-import dominio.dom.Tarjeta;
+import dominio.Tarjeta;
 
 import org.apache.isis.applib.annotation.NatureOfService;
 

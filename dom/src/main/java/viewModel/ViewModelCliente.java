@@ -1,79 +1,110 @@
 package viewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
-import dominio.dom.Equipo;
 
+import dominio.Cliente;
+import dominio.Equipo;
 
-@DomainServiceLayout(menuOrder = "8" ,menuBar = DomainServiceLayout.MenuBar.SECONDARY,named="Vistas Rapidas")
-@MemberGroupLayout(columnSpans = { 4, 0, 0, 9 })
+@MemberGroupLayout(columnSpans = { 4, 0, 0, 1 })
 public class ViewModelCliente extends AbstractViewModel{
 
-	private String nombre;
-	private String email;
-	private String telefono;
-	private String direccion;
-	private List<Equipo> equipos;
-	private String memento;
+	public String title()
+	{
+	      return "Cliente";
+	}	
 	
-	public List<Equipo> getEquipos() {
+	private String memento;
+	private String nombre= "error";
+	private String email= "error";
+	private String telefono= "error";
+	private String direccion= "error";
+	private List<Equipo> equipos = new ArrayList<Equipo>();
+	
+	private Cliente clienteOriginal= new Cliente();
+	
+	
+	@CollectionLayout(render = RenderType.EAGERLY)
+ 	public List<Equipo> getEquipos() {
 		return equipos;
-	}
-	public void setEquipos(List<Equipo> equipos) {
-		this.equipos = equipos;
 	}
 	public String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 	public String getEmail() {
 		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public String getTelefono() {
 		return telefono;
 	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
 	public String getDireccion() {
 		return direccion;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 	
+	
+
+	
 	@Override
 	public String viewModelMemento() {
 		return memento;
 	}
-
-	@SuppressWarnings("unchecked")
 	@Override
 	public void viewModelInit(String memento)
 	{
 		this.memento=memento;
-		
-		Memento mementoAux = mementoService.parse(memento);
-		
-		this.nombre = mementoAux.get("nombre", String.class);
-		this.direccion = mementoAux.get("direccion", String.class);
-		this.email = mementoAux.get("email", String.class);
-		this.telefono = mementoAux.get("telefono", String.class);
-//		this.equipos = mementoAux.get("equipos", List.class);	
-		
+		Memento mementoAux = mementoService.parse(memento);	
+		Cliente auxCliente = new Cliente();
+		auxCliente.setNombre(mementoAux.get("nombre", String.class));
+		List<Cliente> clientes= container.allInstances(Cliente.class);
+		clienteOriginal= new Cliente();
+		clienteOriginal.setNombre(auxCliente.getNombre());
+		for(Cliente c : clientes){
+			if(c.compareTo(clienteOriginal)== 0)
+				clienteOriginal=c;
+		}
+		asignarCamos(clienteOriginal);
 	}
 	
+	
+	private void asignarCamos(Cliente cl) {
+//		cliente.setNombre(cl.getNombre());
+//		cliente.setDireccion( cl.getDireccion());
+//		cliente.setTelefono( cl.getTelefono());
+//		cliente.setEmail( cl.getEmail());
+//		equipo.setEquipos( cl.getEquipos());	
+		
+		
+		this.setNombre(cl.getNombre());
+		this.setDireccion( cl.getDireccion());
+		this.setTelefono( cl.getTelefono());
+		this.setEmail( cl.getEmail());
+		this.equipos = cl.getEquipos();
+	}
+	
+	
+
+	
+		
 	@javax.inject.Inject
 	DomainObjectContainer container;
 	

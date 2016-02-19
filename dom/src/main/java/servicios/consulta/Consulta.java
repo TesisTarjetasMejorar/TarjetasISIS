@@ -224,10 +224,10 @@ import utilidades.evento.Evento;
 
 import com.google.common.collect.Maps;
 
-import dominio.dom.Cliente;
-import dominio.dom.Equipo;
-import dominio.dom.LugarObservacion;
-import dominio.dom.Tarjeta;
+import dominio.Cliente;
+import dominio.Equipo;
+import dominio.LugarObservacion;
+import dominio.Tarjeta;
 
 
 

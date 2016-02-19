@@ -3,7 +3,9 @@ package servicios;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.sf.jasperreports.engine.JRException;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
@@ -15,17 +17,27 @@ import org.apache.isis.applib.services.memento.MementoService.Memento;
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
 import viewModel.ViewModelCliente;
-import dominio.dom.Cliente;
-import dominio.dom.Equipo;
+import dominio.Cliente;
+import dominio.Equipo;
 
 
 @DomainServiceLayout(menuOrder = "80")
 @DomainService(repositoryFor = Cliente.class)
 public class Clientes extends AbstractFactoryAndRepository
 {
-	@javax.inject.Inject 
-    DomainObjectContainer container;
+
+	public ViewModelCliente BuscarCliente(Cliente c)
+	{		
+		 Memento memento = mementoService.create();
+		 memento.set("nombre",c.getNombre());
+
 	
+		 
+		 
+		return container.newViewModelInstance(ViewModelCliente.class, memento.asString());
+
+	}
+
 	public ViewModelCliente Cargar (@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaNombres.NOMBRE )final String nombre,
 							@ParameterLayout (named="Telefono")@Parameter(regexPattern = RegexValidation.ValidaTel.NUMEROTEL)final String telefono,
 							@ParameterLayout (named="E-Mail")@Parameter(regexPattern = RegexValidation.ValidaMail.EMAIL) final String email,
@@ -44,36 +56,29 @@ public class Clientes extends AbstractFactoryAndRepository
 		memento.set("telefono", telefono);
 		memento.set("direccion", direccion);
 		memento.set("email", email);
-//		memento.set("equipos", new ArrayList<Equipo>());
+		memento.set("equipos", new ArrayList<Equipo>());
 		
 		
 		
-//		return cliente;
 		return container.newViewModelInstance(
 				ViewModelCliente.class, memento.asString());
 	}
-	
+
 	public List<Cliente> Eliminar(@ParameterLayout(named="Nombre")final Cliente nom)
 	{
 		removeIfNotAlready(nom);		
 		getContainer().flush();
         return container.allInstances(Cliente.class);
 	}
-	
 	public List<Cliente> ListarTodo()
 	{		
 		return container.allInstances(Cliente.class);
 	}	
-	
-	
+		
 	public List<Equipo> QuitarEquipo(final Cliente c){
 		return c.getEquipos();
 	}
-	public boolean hideQuitarEquipo(final Cliente c){
-		if(c== null)
-			return true;
-		return false;
-	}
+
 	public Cliente CargarEquipo(@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaPalabra.PALABRAINICIALMAYUSCULA )final String nombre, final Cliente c)			
 	{
 		final Equipo equi = container.newTransientInstance(Equipo.class);
@@ -85,15 +90,6 @@ public class Clientes extends AbstractFactoryAndRepository
 //		container.persistIfNotAlready(c);
 		return c;
 	}
-
-
-public boolean hideCargarEquipo(@ParameterLayout (named="Nombre") final String nombre, final Cliente c)			
-{
-	if (c != null)
-		return false;
-	return true;
-}
-	
 	public String reporteClientes() throws JRException {
 		List<Cliente> datos = container.allInstances(Cliente.class);
 
@@ -107,8 +103,20 @@ public boolean hideCargarEquipo(@ParameterLayout (named="Nombre") final String n
 	
 	
 	
+	public boolean hideQuitarEquipo(final Cliente c){
+		if(c== null)
+			return true;
+		return false;
+	}
+	public boolean hideCargarEquipo(@ParameterLayout (named="Nombre") final String nombre, final Cliente c)			
+{
+	if (c != null)
+		return false;
+	return true;
+}
+
 	@javax.inject.Inject
 	MementoService mementoService;
-
-
+	@javax.inject.Inject 
+    DomainObjectContainer container;
 }

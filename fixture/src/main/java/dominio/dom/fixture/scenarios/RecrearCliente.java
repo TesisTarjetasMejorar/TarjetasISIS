@@ -10,7 +10,7 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 
 import servicios.Clientes;
 import viewModel.ViewModelCliente;
-import dominio.dom.Cliente;
+import dominio.Cliente;
 import dominio.dom.fixture.modules.simple.ClienteTearDown;
 
 public class RecrearCliente extends FixtureScript{

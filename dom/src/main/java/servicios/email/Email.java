@@ -10,7 +10,7 @@ import org.apache.isis.applib.annotation.NatureOfService;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.services.email.EmailService;
 
-import dominio.dom.Cliente;
+import dominio.Cliente;
 
 
 /*

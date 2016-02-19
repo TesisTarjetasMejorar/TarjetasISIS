@@ -220,7 +220,7 @@ import org.apache.isis.applib.services.memento.MementoService;
 
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
-import dominio.dom.LugarObservacion;
+import dominio.LugarObservacion;
 
 
 

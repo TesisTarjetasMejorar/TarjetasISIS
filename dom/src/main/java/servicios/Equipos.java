@@ -214,7 +214,7 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 
-import dominio.dom.Equipo;
+import dominio.Equipo;
 
 
 

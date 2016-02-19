@@ -224,10 +224,10 @@ import org.joda.time.LocalDate;
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
 import utilidades.evento.Evento;
-import dominio.dom.ClasificacionSugerida;
-import dominio.dom.Equipo;
-import dominio.dom.LugarObservacion;
-import dominio.dom.Tarjeta;
+import dominio.ClasificacionSugerida;
+import dominio.Equipo;
+import dominio.LugarObservacion;
+import dominio.Tarjeta;
 
 
 /*

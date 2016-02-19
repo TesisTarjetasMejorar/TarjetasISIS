@@ -22,10 +22,10 @@ import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
 import org.apache.isis.applib.DomainObjectContainer;
 
-import dominio.dom.Cliente;
-import dominio.dom.Equipo;
-import dominio.dom.LugarObservacion;
-import dominio.dom.Tarjeta;
+import dominio.Cliente;
+import dominio.Equipo;
+import dominio.LugarObservacion;
+import dominio.Tarjeta;
 public class Reporte {
 
 	

@@ -213,7 +213,7 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 
 import servicios.validacion.RegexValidation;
-import dominio.dom.ClasificacionSugerida;
+import dominio.ClasificacionSugerida;
 
 
 @DomainServiceLayout(menuOrder = "50",named="Clasificaciones sugeridas")

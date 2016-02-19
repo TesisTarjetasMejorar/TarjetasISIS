@@ -203,9 +203,10 @@
 */
 
 
-package dominio.dom;
+package dominio;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.VersionStrategy;
+
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
@@ -229,26 +230,17 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 
 @DomainObject(objectType = "Equipo", bounded = true)
 @PersistenceCapable
+@SuppressWarnings("unused")
 public class Equipo implements Comparable<Equipo>
 {
 	private String nombre;
+
 	private double latitud;
 	private double longitud;
-
-	
-	
-	public double getLatitud() {
-		return latitud;
-	}
 
 	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
-
-	public double getLongitud() {
-		return longitud;
-	}
-
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
