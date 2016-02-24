@@ -13,7 +13,6 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.services.memento.MementoService;
-import org.apache.isis.applib.services.memento.MementoService.Memento;
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
 import viewModel.ViewModelCliente;
@@ -26,16 +25,9 @@ import dominio.Equipo;
 public class Clientes extends AbstractFactoryAndRepository
 {
 
-	public ViewModelCliente BuscarCliente(Cliente c)
-	{		
-		 Memento memento = mementoService.create();
-		 memento.set("nombre",c.getNombre());
-
-	
-		 
-		 
-		return container.newViewModelInstance(ViewModelCliente.class, memento.asString());
-
+	public ViewModelCliente BuscarCliente()
+	{			 	
+		return container.injectServicesInto(new ViewModelCliente());
 	}
 
 	public ViewModelCliente Cargar (@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaNombres.NOMBRE )final String nombre,
@@ -51,24 +43,29 @@ public class Clientes extends AbstractFactoryAndRepository
 		cliente.setEmail(email);
 		container.persistIfNotAlready(cliente);
 		
-		Memento memento = mementoService.create();
-		memento.set("nombre", nombre);
-		memento.set("telefono", telefono);
-		memento.set("direccion", direccion);
-		memento.set("email", email);
-		memento.set("equipos", new ArrayList<Equipo>());
 		
 		
-		
-		return container.newViewModelInstance(
-				ViewModelCliente.class, memento.asString());
+		return container.injectServicesInto(new ViewModelCliente());
 	}
 
-	public List<Cliente> Eliminar(@ParameterLayout(named="Nombre")final Cliente nom)
+	public String Eliminar(@ParameterLayout(named="Nombre")final Cliente nom)
 	{
-		removeIfNotAlready(nom);		
-		getContainer().flush();
-        return container.allInstances(Cliente.class);
+		String salida ="";
+		if(nom.getEquipos().isEmpty()){
+			removeIfNotAlready(nom);	
+			salida= "Cliente eliminado con exito";
+		}else{
+			for(Equipo eq: nom.getEquipos()){
+				salida= equipos.Eliminar(eq);
+			}
+		}
+		if(salida==""){
+			removeIfNotAlready(nom);		
+			getContainer().flush();
+		}else
+			salida= "No se a podido eliminar el cliente, ya que posee un equipo con una tarjeta asociada";
+	
+        return salida;
 	}
 	public List<Cliente> ListarTodo()
 	{		
@@ -115,8 +112,12 @@ public class Clientes extends AbstractFactoryAndRepository
 	return true;
 }
 
-	@javax.inject.Inject
-	MementoService mementoService;
 	@javax.inject.Inject 
     DomainObjectContainer container;
+	
+	@javax.inject.Inject
+	MementoService mementoService;
+	
+	@javax.inject.Inject
+	Equipos equipos;
 }

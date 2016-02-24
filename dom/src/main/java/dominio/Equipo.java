@@ -264,7 +264,9 @@ public class Equipo implements Comparable<Equipo>
 
 	@Override
 	public int compareTo(Equipo o) {
-		
+		if(o == null){
+			return 1;
+		}
 		return this.nombre.compareTo(o.getNombre());
 	}
 

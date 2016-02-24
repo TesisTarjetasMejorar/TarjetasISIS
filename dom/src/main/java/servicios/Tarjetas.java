@@ -220,7 +220,6 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
-
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
 import utilidades.evento.Evento;
@@ -279,16 +278,7 @@ public class Tarjetas extends AbstractFactoryAndRepository
 	}
 	
 	
-	/*
-	 * Este metodo es utilidazo para mostrar una tarjeta concretamente 
-	 * especificada por el usuario
-	 */
-	@Action(semantics = SemanticsOf.SAFE)
-    @ActionLayout(bookmarking = BookmarkPolicy.AS_ROOT)
-	public Tarjeta Modificar(@ParameterLayout(named="Tarjeta")final Tarjeta tarjeta)
-	{	
-		return tarjeta;
-	}
+	
 	
 	/*
 	 * Este metodo te permite eliminar
@@ -372,6 +362,8 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		return "Reporte de tarjetas generado";
 		
 	}
+	
+
 
 
 

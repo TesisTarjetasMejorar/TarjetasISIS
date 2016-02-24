@@ -215,6 +215,7 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 
 import dominio.Equipo;
+import dominio.Tarjeta;
 
 
 
@@ -223,17 +224,27 @@ import dominio.Equipo;
 @DomainService(repositoryFor = Equipo.class)
 public class Equipos extends AbstractFactoryAndRepository
 {
-	@javax.inject.Inject 
-    DomainObjectContainer container;
-	
 
 	
 	public String Eliminar(@ParameterLayout(named="Nombre")final Equipo nom)
 	{
+		List<Tarjeta> tarjetas = container.allInstances(Tarjeta.class);
+		for(Tarjeta a: tarjetas)
+		{
+			if(a.getEquipo().getNombre().equals(nom.getNombre()))
+			{
+				return "No se puede eliminar el equipo, ya que posee una tarjeta vinculada";	
+			}
+			
+		}
 		removeIfNotAlready(nom);		
 		getContainer().flush();
-        return "No se encontro equipo "+nom;
+		
+		return "Equipo eliminado correctamente";
+			
 	}
+
+	
 	
 
 	public List<Equipo> ListarTodo()
@@ -241,5 +252,9 @@ public class Equipos extends AbstractFactoryAndRepository
 		return container.allInstances(Equipo.class);
 	}
 	
-
+	@javax.inject.Inject 
+    DomainObjectContainer container;
+	
+	
+	
 }

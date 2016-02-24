@@ -3,112 +3,78 @@ package viewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
+import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Nature;
+import org.apache.isis.applib.annotation.Parameter;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RenderType;
-import org.apache.isis.applib.services.memento.MementoService;
-import org.apache.isis.applib.services.memento.MementoService.Memento;
 
+import servicios.Clientes;
+import servicios.Equipos;
+import servicios.validacion.RegexValidation;
 import dominio.Cliente;
 import dominio.Equipo;
 
-@MemberGroupLayout(columnSpans = { 4, 0, 0, 1 })
-public class ViewModelCliente extends AbstractViewModel{
 
+
+
+
+/*	columnSpans={12,3,3,6},
+ * 	los primeros 3 valores son de las propiedades del viewModel
+ *  y el ultimo de una coleccion final. Si se le da el valor 12 
+ *  significa que ocupa toda la pantalla el primer valor (esto se trabaja con boostrap)
+ *  
+ * 
+ */
+@MemberGroupLayout
+( 
+		columnSpans={3,3,3,12},
+		left={"General", "Misc"}
+)
+
+@DomainObject(nature = Nature.VIEW_MODEL)
+public class ViewModelCliente {
 	public String title()
 	{
 	      return "Cliente";
-	}	
+	}
 	
-	private String memento;
-	private String nombre= "error";
-	private String email= "error";
-	private String telefono= "error";
-	private String direccion= "error";
+	private List<Cliente> clientes;
 	private List<Equipo> equipos = new ArrayList<Equipo>();
 	
-	private Cliente clienteOriginal= new Cliente();
 	
-	
+	@MemberOrder (sequence = "1")
 	@CollectionLayout(render = RenderType.EAGERLY)
- 	public List<Equipo> getEquipos() {
-		return equipos;
-	}
-	public String getNombre() {
-		return nombre;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public String getTelefono() {
-		return telefono;
-	}
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	@Collection(editing = Editing.DISABLED)
+	public List<Cliente> getClientes() {
+		return (List<Cliente>) container.allInstances(Cliente.class);
 	}
 	
 	
+	@MemberOrder (sequence = "4")
+	public ViewModelCliente agregarCliente (@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaNombres.NOMBRE )final String nombre,
+			@ParameterLayout (named="Telefono")@Parameter(regexPattern = RegexValidation.ValidaTel.NUMEROTEL)final String telefono,
+			@ParameterLayout (named="E-Mail")@Parameter(regexPattern = RegexValidation.ValidaMail.EMAIL) final String email,
+			@ParameterLayout (named="Direccion") @Parameter(regexPattern = RegexValidation.ValidaDireccion.DIRECCION )final String direccion){	
+		return factoriaCliente.Cargar(nombre, telefono, email, direccion);
+	}
+	
+	
+		
 
-	
-	@Override
-	public String viewModelMemento() {
-		return memento;
-	}
-	@Override
-	public void viewModelInit(String memento)
-	{
-		this.memento=memento;
-		Memento mementoAux = mementoService.parse(memento);	
-		Cliente auxCliente = new Cliente();
-		auxCliente.setNombre(mementoAux.get("nombre", String.class));
-		List<Cliente> clientes= container.allInstances(Cliente.class);
-		clienteOriginal= new Cliente();
-		clienteOriginal.setNombre(auxCliente.getNombre());
-		for(Cliente c : clientes){
-			if(c.compareTo(clienteOriginal)== 0)
-				clienteOriginal=c;
-		}
-		asignarCamos(clienteOriginal);
-	}
-	
-	
-	private void asignarCamos(Cliente cl) {
-//		cliente.setNombre(cl.getNombre());
-//		cliente.setDireccion( cl.getDireccion());
-//		cliente.setTelefono( cl.getTelefono());
-//		cliente.setEmail( cl.getEmail());
-//		equipo.setEquipos( cl.getEquipos());	
-		
-		
-		this.setNombre(cl.getNombre());
-		this.setDireccion( cl.getDireccion());
-		this.setTelefono( cl.getTelefono());
-		this.setEmail( cl.getEmail());
-		this.equipos = cl.getEquipos();
-	}
-	
-	
-
-	
-		
 	@javax.inject.Inject
 	DomainObjectContainer container;
-	
+
 	@javax.inject.Inject
-	MementoService mementoService;
+	Clientes factoriaCliente;
+	
+	
+	
 
 }

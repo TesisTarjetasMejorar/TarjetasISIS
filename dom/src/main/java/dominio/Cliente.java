@@ -12,6 +12,7 @@ import javax.jdo.annotations.Persistent;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
@@ -45,6 +46,7 @@ public class Cliente implements Comparable<Cliente>, Serializable
 	private List<Equipo> equipos;
 	
 	
+	@MemberOrder (sequence = "1")
 	@org.apache.isis.applib.annotation.Property(editing = Editing.ENABLED)
 	@javax.jdo.annotations.Column(allowsNull = "false",length = 100)
 	public String getNombre() {
@@ -53,6 +55,8 @@ public class Cliente implements Comparable<Cliente>, Serializable
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	@MemberOrder (sequence = "3")
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	public String getEmail() {
 		return email;
@@ -60,15 +64,18 @@ public class Cliente implements Comparable<Cliente>, Serializable
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@MemberOrder (sequence = "2")
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	public String getTelefono() {
 		return telefono;
 	}
 
+
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 	
+	@MemberOrder (sequence = "4")
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	public String getDireccion() {
 		return direccion;

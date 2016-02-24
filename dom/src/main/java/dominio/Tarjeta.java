@@ -207,6 +207,7 @@ import javax.jdo.annotations.Column;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -386,6 +387,12 @@ public class Tarjeta  implements Comparable<Tarjeta>
 	public int compareTo(Tarjeta o) {
 		
 		return (this.fechaCarga.getMonthOfYear() - o.getFechaCarga().getMonthOfYear());
+	}
+	
+	@Programmatic
+	public boolean perteneceEquipo(Equipo equipo){
+		boolean salida = equipo.compareTo(this.equipo)==0;
+		return salida;
 	}
 	
 	
