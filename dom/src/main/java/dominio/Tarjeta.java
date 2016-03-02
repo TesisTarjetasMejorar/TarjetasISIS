@@ -206,8 +206,11 @@ package dominio;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.PersistenceCapable;
 
+import org.apache.isis.applib.annotation.BookmarkPolicy;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.ViewModelLayout;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.annotation.DomainObject;
@@ -230,7 +233,15 @@ import utilidades.evento.Evento;
 
 @DomainObject(objectType = "Tarjeta", bounded = true)
 @PersistenceCapable
-//@Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
+@DomainObjectLayout
+(
+		cssClass="x-key",
+		describedAs="Tarjeta de situacion riesgosa",
+		named="Tarjeta",
+		paged=30,
+		plural="Lista de Tarjetas"
+)
+@ViewModelLayout
 public class Tarjeta  implements Comparable<Tarjeta>
 {
 	private String numTarjetaTesco;
@@ -340,7 +351,7 @@ public class Tarjeta  implements Comparable<Tarjeta>
 	
 	public TranslatableString title()
 	{
-		return TranslatableString.tr("{name}", "name", "Tarjeta");
+		return TranslatableString.tr("{name}", "name", "Tarjeta: "+ this.numTarjetaTesco);
 	}
 	
 	@MemberOrder (sequence = "9")
@@ -374,7 +385,6 @@ public class Tarjeta  implements Comparable<Tarjeta>
 
 	public boolean equals (Tarjeta a)
 	{
-		
 		boolean salida = a.getNumTarjetaTesco().equals(this.getNumTarjetaTesco());
 		return	salida;
 	}
@@ -394,7 +404,5 @@ public class Tarjeta  implements Comparable<Tarjeta>
 		boolean salida = equipo.compareTo(this.equipo)==0;
 		return salida;
 	}
-	
-	
 		
 }

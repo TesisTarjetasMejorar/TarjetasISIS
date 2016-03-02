@@ -203,6 +203,7 @@
 */
 
 package servicios.consulta;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -215,6 +216,7 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
 import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 
+import servicios.Clientes;
 import servicios.utilidades.GraficoTortaBarras;
 import servicios.utilidades.GraficoTortaClientes;
 import servicios.utilidades.GraficoTortaEventos;
@@ -235,8 +237,7 @@ import dominio.Tarjeta;
 @DomainService(repositoryFor = Tarjeta.class)
 public class Consulta
 {
-	@javax.inject.Inject 
-    DomainObjectContainer container;
+
 	
 	public List<Tarjeta> listarTarjetasPorEstado(@ParameterLayout (named="Estado")final boolean estado)
 	{
@@ -296,7 +297,7 @@ public class Consulta
 		return salida;
 	}
 	
-
+	
 	public WickedChart graficoTarjetasResueltas(@ParameterLayout (named="Cliente")final Cliente cliente){
 		Map<Boolean,AtomicInteger> mapeo = Maps.newTreeMap();
 		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
@@ -318,6 +319,8 @@ public class Consulta
 	
 		
 	}
+	
+	
 	public WickedChart graficoTarjetasReportadas(@ParameterLayout (named="Cliente")final Cliente cliente){
 		Map<Boolean,AtomicInteger> mapeo = Maps.newTreeMap();
 		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
@@ -340,7 +343,7 @@ public class Consulta
 		
 	}
 	
-	private boolean pertenece (Equipo a, Cliente c){
+	private boolean pertenece (final Equipo a, final Cliente c){
 		boolean salida = false;
 		for (Equipo aux : c.getEquipos()){
 			if(aux.compareTo(a)== 0){
@@ -353,23 +356,30 @@ public class Consulta
 		
 
 	public WickedChart graficoTarjetasPorCliente(){
+		
 		Map<Cliente,AtomicInteger> mapeo = Maps.newTreeMap();
 		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
-		for (Tarjeta a : lista){
+		for (Tarjeta a : lista)
+		{
 			Cliente aux = recuperarCliente(a);
-			AtomicInteger integer= mapeo.get(aux);
-			if(integer == null) {
-				integer = new AtomicInteger();
-				mapeo.put(aux, integer);
+			if(aux != null)
+			{
+				AtomicInteger integer= mapeo.get(aux);
+				if(integer == null) {
+					integer = new AtomicInteger();
+					mapeo.put(aux, integer);
+				}
+				integer.incrementAndGet();
 			}
-			integer.incrementAndGet();
+			
+
 		}
 		return new WickedChart(new GraficoTortaClientes(mapeo));
 	
 		
 	}
 	
-	private Cliente recuperarCliente(Tarjeta a){
+	private Cliente recuperarCliente(final Tarjeta a){
 		List<Cliente> lista=  container.allInstances(Cliente.class);
 		Cliente salida = null;
 		for (Cliente c : lista){
@@ -380,7 +390,11 @@ public class Consulta
 		
 		return salida;
 	}
+	
+
+
 	public WickedChart graficoInsidentesPorCliente(@ParameterLayout (named="Cliente")final Cliente cliente){
+		
 		Map<Evento,AtomicInteger> mapeo = Maps.newTreeMap();
 		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
 		List<Tarjeta> aux = new ArrayList<Tarjeta>();
@@ -402,6 +416,7 @@ public class Consulta
 
 	}
 	
+
 	public WickedChart graficoTarjetasBarras(@ParameterLayout (named="Cliente")final Cliente cliente){
 		Map<String,AtomicInteger> mapeo = Maps.newTreeMap();
 		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
@@ -427,6 +442,7 @@ public class Consulta
 	
 		
 	}
+	
 	private String mesesPorTarjeta(Tarjeta a){
 
 		int mes = a.getFechaCarga().getMonthOfYear();
@@ -451,5 +467,12 @@ public class Consulta
 		return salida;
 	}
 	
+	
+	
+	@javax.inject.Inject 
+	Clientes servCliente;
+	
+	@javax.inject.Inject 
+    DomainObjectContainer container;
 }
 

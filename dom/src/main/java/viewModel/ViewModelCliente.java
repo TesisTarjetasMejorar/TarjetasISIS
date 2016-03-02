@@ -1,27 +1,19 @@
 package viewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.List;
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Collection;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
-import org.apache.isis.applib.annotation.Editing;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Nature;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.RenderType;
-
 import servicios.Clientes;
-import servicios.Equipos;
 import servicios.validacion.RegexValidation;
 import dominio.Cliente;
-import dominio.Equipo;
-
-
 
 
 
@@ -32,28 +24,29 @@ import dominio.Equipo;
  *  
  * 
  */
+
 @MemberGroupLayout
 ( 
-		columnSpans={3,3,3,12},
-		left={"General", "Misc"}
+		columnSpans={1,1,1,12}
 )
-
 @DomainObject(nature = Nature.VIEW_MODEL)
-public class ViewModelCliente {
+public class ViewModelCliente{
 	public String title()
 	{
 	      return "Cliente";
 	}
 	
 	private List<Cliente> clientes;
-	private List<Equipo> equipos = new ArrayList<Equipo>();
 	
 	
-	@MemberOrder (sequence = "1")
 	@CollectionLayout(render = RenderType.EAGERLY)
-	@Collection(editing = Editing.DISABLED)
-	public List<Cliente> getClientes() {
-		return (List<Cliente>) container.allInstances(Cliente.class);
+	public List<Cliente> getClientes(){
+		clientes= (List<Cliente>) container.allInstances(Cliente.class);
+		return clientes;
+	}	
+	
+	public void setClientes(List<Cliente> clientes){
+		this.clientes = clientes;
 	}
 	
 	
@@ -66,6 +59,13 @@ public class ViewModelCliente {
 	}
 	
 	
+	public String eliminarCliente(Cliente c) {
+		String salida="";
+		salida = factoriaCliente.EliminarCliente(c);	
+		return salida;
+	}
+	
+	
 		
 
 	@javax.inject.Inject
@@ -73,6 +73,9 @@ public class ViewModelCliente {
 
 	@javax.inject.Inject
 	Clientes factoriaCliente;
+	
+	@javax.inject.Inject
+	Cliente cliente;
 	
 	
 	

@@ -217,17 +217,22 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.services.memento.MementoService;
+import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.joda.time.LocalDate;
+
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
 import utilidades.evento.Evento;
+import viewModel.ViewModelTarjeta;
 import dominio.ClasificacionSugerida;
+import dominio.Cliente;
 import dominio.Equipo;
 import dominio.LugarObservacion;
 import dominio.Tarjeta;
-
 
 /*
  * Clase Servicio para Tarjetas, en esta clase se encuentran las 
@@ -361,12 +366,60 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		
 		return "Reporte de tarjetas generado";
 		
+		
+	}
+	
+	@Programmatic
+	public void clonar(Tarjeta a, Tarjeta b)
+	{
+		if (b==null || a!=null)
+		{		
+			b = new Tarjeta();
+			b.setNumTarjetaTesco(a.getNumTarjetaTesco());
+			b.setClasifSug(a.getClasifSug());
+			b.setDecisionTomada(a.getDecisionTomada());
+			b.setEquipo(a.getEquipo());
+			b.setEstado(a.isEstado());
+			b.setEvento(a.getEvento());
+			b.setFechaCarga(a.getFechaCarga());
+			b.setFechaReporte(a.getFechaReporte());
+			b.setLineaNegocio(a.getLineaNegocio());
+			b.setLugarObs(a.getLugarObs());
+			b.setResuelto(b.isResuelto());
+			b.setReportado(a.isReportado());
+		}
 	}
 	
 
+//	public ViewModelTarjeta informacionDeTarjeta(@ParameterLayout (named="Numero de tarjeta")final Tarjeta a){
+	public String informacionDeTarjeta(@ParameterLayout (named="Numero de tarjeta")final Tarjeta a){
+		Memento memento = mementoService.create();
+		String test = a.getNumTarjetaTesco();
+		
+		memento.set("numero",test);	
 
+		return a.getNumTarjetaTesco();
+//		return container.newViewModelInstance(ViewModelTarjeta.class, memento.asString());
 
+	}
 
+	
+	
+	public Cliente clienteDeTarjeta(@ParameterLayout (named="Numero de tarjeta")final Tarjeta a){
+		Cliente salida = null;
+		if(a.getEquipo()!= null)
+		{
+			salida = cliente.perteneceEquipo(a.getEquipo().getNombre());
+		}	
+		return salida;
+	}
+	
+	
+	@javax.inject.Inject
+	MementoService mementoService;
+	
+	@javax.inject.Inject
+	Cliente cliente;
 	
 	
 	

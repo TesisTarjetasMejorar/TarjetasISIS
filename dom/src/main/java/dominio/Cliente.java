@@ -9,11 +9,17 @@ import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.DomainObject;
+import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.MemberGroups;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RenderType;
+import org.apache.isis.applib.annotation.ViewModelLayout;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 
@@ -27,6 +33,8 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 
 @DomainObject(objectType = "Cliente", bounded = true)
 @PersistenceCapable
+@DomainObjectLayout(named = "Cliente")
+@MemberGroupLayout(right = {})
 public class Cliente implements Comparable<Cliente>, Serializable
 {
 	/**
@@ -104,6 +112,20 @@ public class Cliente implements Comparable<Cliente>, Serializable
 		return salida;
 	}
 	
-	
-	
+	@Programmatic
+	public Cliente perteneceEquipo(String equipo) {
+		Cliente salida= null;
+		if(this.equipos != null){
+			for(Equipo eq : this.equipos){
+				if(eq.getNombre().equals(equipo))
+				{
+					salida = this;
+				}
+			}
+		}
+		return salida;
+	}
+		
+    
+    
 }

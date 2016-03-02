@@ -211,6 +211,8 @@ import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.ViewModelLayout;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
 
@@ -224,13 +226,10 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
         
         column="version")
 
-@DomainObjectLayout(
-        bookmarking = BookmarkPolicy.AS_ROOT
-)
-
 @DomainObject(objectType = "Equipo", bounded = true)
 @PersistenceCapable
 @SuppressWarnings("unused")
+@ViewModelLayout
 public class Equipo implements Comparable<Equipo>
 {
 	private String nombre;
@@ -244,7 +243,17 @@ public class Equipo implements Comparable<Equipo>
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
-
+	
+	
+	@Programmatic
+	public double getLatitud() {
+		return latitud;
+	}
+	
+	@Programmatic
+	public double getLongitud() {
+		return longitud;
+	}
 	@org.apache.isis.applib.annotation.Property(editing = Editing.DISABLED)
 	@javax.jdo.annotations.Column(allowsNull = "false",length = 40)
 	public String getNombre() 

@@ -3,21 +3,21 @@ package servicios;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.sf.jasperreports.engine.JRException;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.memento.MementoService;
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
 import viewModel.ViewModelCliente;
 import dominio.Cliente;
 import dominio.Equipo;
+
 
 
 @DomainServiceLayout(menuOrder = "80")
@@ -43,12 +43,10 @@ public class Clientes extends AbstractFactoryAndRepository
 		cliente.setEmail(email);
 		container.persistIfNotAlready(cliente);
 		
-		
-		
 		return container.injectServicesInto(new ViewModelCliente());
 	}
 
-	public String Eliminar(@ParameterLayout(named="Nombre")final Cliente nom)
+	public String EliminarCliente(@ParameterLayout(named="Nombre")final Cliente nom)
 	{
 		String salida ="";
 		if(nom.getEquipos().isEmpty()){
@@ -76,6 +74,7 @@ public class Clientes extends AbstractFactoryAndRepository
 		return c.getEquipos();
 	}
 
+	
 	public Cliente CargarEquipo(@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaPalabra.PALABRAINICIALMAYUSCULA )final String nombre, final Cliente c)			
 	{
 		final Equipo equi = container.newTransientInstance(Equipo.class);
@@ -112,6 +111,22 @@ public class Clientes extends AbstractFactoryAndRepository
 	return true;
 }
 
+	@Programmatic
+	public void clonar(final Cliente a, Cliente b)
+	{
+		if(b==null || a!=null)
+		{
+			b = new Cliente();
+			b.setNombre(a.getNombre().toString());
+			b.setEmail(a.getEmail().toString());
+			b.setTelefono(a.getTelefono().toString());
+			b.setDireccion(a.getDireccion().toString());
+			b.setEquipos(a.getEquipos());
+		}
+	}
+
+	
+	
 	@javax.inject.Inject 
     DomainObjectContainer container;
 	
