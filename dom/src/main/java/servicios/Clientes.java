@@ -3,15 +3,22 @@ package servicios;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.sf.jasperreports.engine.JRException;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Action;
+import org.apache.isis.applib.annotation.ActionLayout;
+import org.apache.isis.applib.annotation.ActionLayout.Position;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
+import org.apache.isis.applib.annotation.InvokeOn;
 import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.memento.MementoService;
+
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
 import viewModel.ViewModelCliente;
@@ -65,16 +72,20 @@ public class Clientes extends AbstractFactoryAndRepository
 	
         return salida;
 	}
+	
 	public List<Cliente> ListarTodo()
 	{		
 		return container.allInstances(Cliente.class);
 	}	
 		
+	
+	@Action(invokeOn = InvokeOn.COLLECTION_ONLY)
 	public List<Equipo> QuitarEquipo(final Cliente c){
 		return c.getEquipos();
 	}
 
 	
+
 	public Cliente CargarEquipo(@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaPalabra.PALABRAINICIALMAYUSCULA )final String nombre, final Cliente c)			
 	{
 		final Equipo equi = container.newTransientInstance(Equipo.class);
@@ -92,7 +103,9 @@ public class Clientes extends AbstractFactoryAndRepository
 		String fecha = "";
 		String nombre = "Reporte de Clientes "+fecha;
 		
-		Reporte.generarReporteCliente("reportes/reporteClientes.jrxml", datos,nombre);		
+		
+		Reporte.generarReporteCliente("reporteClientes.jrxml", datos,nombre);		
+//		Reporte.generarReporteCliente("reportes/reporteClientes.jrxml", datos,nombre);		
 		
 		return "Se genero reporte de clientes";
 	}

@@ -217,11 +217,13 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
 
 import servicios.Clientes;
+import servicios.utilidades.Estado;
 import servicios.utilidades.GraficoTortaBarras;
 import servicios.utilidades.GraficoTortaClientes;
 import servicios.utilidades.GraficoTortaEventos;
 import servicios.utilidades.GraficoTortaReportadas;
 import servicios.utilidades.GraficoTortaResueltos;
+import servicios.utilidades.Respuesta;
 import utilidades.evento.Evento;
 
 import com.google.common.collect.Maps;
@@ -237,30 +239,51 @@ import dominio.Tarjeta;
 @DomainService(repositoryFor = Tarjeta.class)
 public class Consulta
 {
-
 	
-	public List<Tarjeta> listarTarjetasPorEstado(@ParameterLayout (named="Estado")final boolean estado)
+	
+	public List<Tarjeta> listarTarjetasPorEstado(@ParameterLayout (named="Estado")final Estado estado)
 	{
-		List<Tarjeta> salida = new ArrayList<Tarjeta>();
-	
-		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,  "listarEstado","estado",estado )));
+		List<Tarjeta> salida = new ArrayList<Tarjeta>();		
+		
+		boolean bandera= false;
+		if (estado== Estado.Abierto){
+			bandera = true;
+		}
+		
+		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,  "listarEstado","estado",bandera )));
 			
 		return salida;
 	}
 	
-	public List<Tarjeta> listarTarjetasResueltas(@ParameterLayout (named="Resueltas")final boolean resuelto)
+	public List<Tarjeta> listarTarjetasResueltas(@ParameterLayout (named="Resueltas")final Respuesta respuesta)
 	{
 		List<Tarjeta> salida = new ArrayList<Tarjeta>();
 
-		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,"listarResueltas","resuelto",resuelto)));
+		boolean bandera= false;
+		if (respuesta== Respuesta.Si){
+			bandera = true;
+		}
+		
+		
+		
+		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,"listarResueltas","resuelto",bandera)));
 	
 		return salida;
 	}
 	
-	public List<Tarjeta> listarTarjetasReportadas(@ParameterLayout (named="Reportadas a Supervisor")final boolean reportado)
+	public List<Tarjeta> listarTarjetasReportadas(@ParameterLayout (named="Reportadas a Supervisor")final Respuesta reportado)
 	{
 		List<Tarjeta> salida = new ArrayList<Tarjeta>();
-		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,"listarReportado","reportado",reportado)));
+		
+		
+		boolean bandera= false;
+		if (reportado== Respuesta.Si){
+			bandera = true;
+		}
+		
+		
+		
+		salida.addAll(container.allMatches(new QueryDefault<>(Tarjeta.class,"listarReportado","reportado",bandera)));
 	
 		return salida;
 	}

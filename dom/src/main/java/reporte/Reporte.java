@@ -19,6 +19,7 @@ import net.sf.jasperreports.engine.ReportContext;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import org.apache.isis.applib.DomainObjectContainer;
 
@@ -60,7 +61,7 @@ public class Reporte {
 		JasperPrint print = JasperFillManager.fillReport(reporte, map, jArray);
 		
 		//Lo muestra con el jasperviewer
-		//JasperViewer.viewReport(print, false);
+		JasperViewer.viewReport(print, true);
 		
 		
 		JasperExportManager.exportReportToPdfFile(print, nombreArchivo + ".pdf");

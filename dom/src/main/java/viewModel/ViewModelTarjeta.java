@@ -2,25 +2,17 @@ package viewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.jdo.annotations.Column;
-
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.CollectionLayout;
-import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.annotation.ViewModel;
-import org.apache.isis.applib.annotation.ViewModelLayout;
-import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.joda.time.LocalDate;
-
 import servicios.Clientes;
 import servicios.Tarjetas;
 import utilidades.evento.Evento;
@@ -32,10 +24,9 @@ import dominio.Tarjeta;
 
 @MemberGroupLayout 
 ( 
-		columnSpans={3,3,3,12}
+		columnSpans={3,3,3,2}
 )
-@ViewModel
-public class ViewModelTarjeta
+public class ViewModelTarjeta extends AbstractViewModel
 {
 	
 	public ViewModelTarjeta(){}
@@ -126,22 +117,22 @@ public class ViewModelTarjeta
 
 
 		//---------------------------	Cargas------------------------------------
-		private void cargarTarjetaBlanca()
-		{
-			this.tarjeta= new Tarjeta();
-			this.tarjeta.setNumTarjetaTesco("No tarjeta");
-			this.tarjeta.setFechaReporte(null);
-			this.tarjeta.setFechaCarga(null);
-			this.tarjeta.setLugarObs(null);
-			this.tarjeta.setLineaNegocio(null);
-			this.tarjeta.setDecisionTomada(null);
-			this.tarjeta.setClasifSug(null);
-			this.tarjeta.setEquipo(null);
-			this.tarjeta.setEstado(false);
-			this.tarjeta.setEvento(null);
-			this.tarjeta.setResuelto(false);
-			this.tarjeta.setReportado(false);		
-		}		
+//		private void cargarTarjeta(final Tarjeta t)
+//		{			
+//			this.tarjeta= t;
+//			this.tarjeta.setNumTarjetaTesco("No tarjeta");
+//			this.tarjeta.setFechaReporte(null);
+//			this.tarjeta.setFechaCarga(null);
+//			this.tarjeta.setLugarObs(null);
+//			this.tarjeta.setLineaNegocio(null);
+//			this.tarjeta.setDecisionTomada(null);
+//			this.tarjeta.setClasifSug(null);
+//			this.tarjeta.setEquipo(null);
+//			this.tarjeta.setEstado(false);
+//			this.tarjeta.setEvento(null);
+//			this.tarjeta.setResuelto(false);
+//			this.tarjeta.setReportado(false);		
+//		}		
 		private void cargarClienteNull() {
 			this.cliente = new Cliente();
 			this.cliente.setNombre("Cliente no encontrado");
@@ -156,7 +147,6 @@ public class ViewModelTarjeta
 		
 		@Programmatic
 		public Tarjeta getTarjeta() {
-			cargarTarjetaBlanca();
 			return this.tarjeta;
 		}
 		@Programmatic
@@ -178,6 +168,30 @@ public class ViewModelTarjeta
 	
 	@javax.inject.Inject
 	MementoService mementoService;
+
+	@Override
+	public String viewModelMemento() {
+		
+		return this.memento;
+	}
+	@Override
+	public void viewModelInit(String memento) {
+		this.memento = memento;
+		Memento salida = mementoService.parse(memento);
+		String numero = salida.get("numero", String.class);
+		List<Tarjeta> tarjetas = container.allInstances(Tarjeta.class);
+		
+		for(Tarjeta tarjeta : tarjetas){
+			if (tarjeta.getNumTarjetaTesco().equals(numero)){
+				this.tarjeta = tarjeta;
+			}
+		}
+		
+		cargarClienteNull();
+		
+		
+	}
+
 	
 
 	

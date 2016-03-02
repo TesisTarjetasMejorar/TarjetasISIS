@@ -391,15 +391,14 @@ public class Tarjetas extends AbstractFactoryAndRepository
 	}
 	
 
-//	public ViewModelTarjeta informacionDeTarjeta(@ParameterLayout (named="Numero de tarjeta")final Tarjeta a){
-	public String informacionDeTarjeta(@ParameterLayout (named="Numero de tarjeta")final Tarjeta a){
+	public ViewModelTarjeta informacionDeTarjeta(@ParameterLayout (named="Numero de tarjeta")final Tarjeta a){
+
 		Memento memento = mementoService.create();
 		String test = a.getNumTarjetaTesco();
 		
 		memento.set("numero",test);	
 
-		return a.getNumTarjetaTesco();
-//		return container.newViewModelInstance(ViewModelTarjeta.class, memento.asString());
+		return container.newViewModelInstance(ViewModelTarjeta.class, memento.asString());
 
 	}
 
