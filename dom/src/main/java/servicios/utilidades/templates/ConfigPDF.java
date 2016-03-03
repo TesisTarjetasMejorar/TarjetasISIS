@@ -1,4 +1,4 @@
-package utilidades.templates;
+package servicios.utilidades.templates;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -68,15 +68,13 @@ public class ConfigPDF
      * Este metodo se encarga de incertar los datos de la tarjeta, en su correspondiente lugar
      * de la plantilla creada
      */
+    @SuppressWarnings("unchecked")
     private PDDocument loadAndPopulateTemplate(Tarjeta order) throws Exception {
         PDDocument pdfDocument = PDDocument.load(new ByteArrayInputStream(pdfAsBytes));
         PDAcroForm pdfForm = pdfDocument.getDocumentCatalog().getAcroForm();
-        List<PDField> fields = pdfForm.getFields();
+		List<PDField> fields = pdfForm.getFields();
         for (PDField field : fields)
         {
-
-  
-      
 			switch (field.getFullyQualifiedName())
 				{
 			case "txtNumTar": field.setValue(order.getNumTarjetaTesco());break;
@@ -113,9 +111,6 @@ public class ConfigPDF
 
             				
         }
-
-
-
         return pdfDocument;
     }
 }

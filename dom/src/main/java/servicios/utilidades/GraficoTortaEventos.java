@@ -2,9 +2,6 @@ package servicios.utilidades;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import utilidades.evento.Evento;
-
 import com.googlecode.wickedcharts.highcharts.options.ChartOptions;
 import com.googlecode.wickedcharts.highcharts.options.Cursor;
 import com.googlecode.wickedcharts.highcharts.options.DataLabels;

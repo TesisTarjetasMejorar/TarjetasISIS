@@ -215,19 +215,16 @@ import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.query.QueryDefault;
 import org.isisaddons.wicket.wickedcharts.cpt.applib.WickedChart;
-
 import servicios.Clientes;
 import servicios.utilidades.Estado;
+import servicios.utilidades.Evento;
 import servicios.utilidades.GraficoTortaBarras;
 import servicios.utilidades.GraficoTortaClientes;
 import servicios.utilidades.GraficoTortaEventos;
 import servicios.utilidades.GraficoTortaReportadas;
 import servicios.utilidades.GraficoTortaResueltos;
 import servicios.utilidades.Respuesta;
-import utilidades.evento.Evento;
-
 import com.google.common.collect.Maps;
-
 import dominio.Cliente;
 import dominio.Equipo;
 import dominio.LugarObservacion;

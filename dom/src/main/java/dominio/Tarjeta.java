@@ -205,8 +205,6 @@
 package dominio;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.PersistenceCapable;
-
-import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Programmatic;
@@ -214,8 +212,8 @@ import org.apache.isis.applib.annotation.ViewModelLayout;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 import org.joda.time.LocalDate;
 import org.apache.isis.applib.annotation.DomainObject;
+import servicios.utilidades.Evento;
 
-import utilidades.evento.Evento;
 
 @javax.jdo.annotations.Queries
 	({

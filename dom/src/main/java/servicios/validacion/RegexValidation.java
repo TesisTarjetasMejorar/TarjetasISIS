@@ -1,13 +1,18 @@
 
 package servicios.validacion;
 
+
+
 public final class RegexValidation {
+	
+	
+	
 	public static final class ValidaNombres {
 
 		private ValidaNombres() {
 		}
-		public static final String INICIALES = "[a-z,A-Z,ñ,Ñ]{2}$+";
-		public static final String NOMBRE = "[A-Z]+[a-z,ñ]*+[ ]+[A-Z]+[a-z,ñ]*$+";
+//		public static final String INICIALES = "[a-z,A-Z,ñ,Ñ]{2}$+";
+		public static final String NOMBRE = "[A-Z]+[a-z,ñ]*+[ ]+[A-Z]+[a-z,ñ]*";
 	}
 
 	public static final class ValidaTel {

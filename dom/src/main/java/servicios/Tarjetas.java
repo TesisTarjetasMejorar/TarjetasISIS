@@ -225,8 +225,8 @@ import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.joda.time.LocalDate;
 
 import reporte.Reporte;
+import servicios.utilidades.Evento;
 import servicios.validacion.RegexValidation;
-import utilidades.evento.Evento;
 import viewModel.ViewModelTarjeta;
 import dominio.ClasificacionSugerida;
 import dominio.Cliente;

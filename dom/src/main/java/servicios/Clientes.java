@@ -3,14 +3,10 @@ package servicios;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import net.sf.jasperreports.engine.JRException;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Action;
-import org.apache.isis.applib.annotation.ActionLayout;
-import org.apache.isis.applib.annotation.ActionLayout.Position;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
 import org.apache.isis.applib.annotation.InvokeOn;
@@ -18,7 +14,6 @@ import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.services.memento.MementoService;
-
 import reporte.Reporte;
 import servicios.validacion.RegexValidation;
 import viewModel.ViewModelCliente;
@@ -37,10 +32,23 @@ public class Clientes extends AbstractFactoryAndRepository
 		return container.injectServicesInto(new ViewModelCliente());
 	}
 
-	public ViewModelCliente Cargar (@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaNombres.NOMBRE )final String nombre,
-							@ParameterLayout (named="Telefono")@Parameter(regexPattern = RegexValidation.ValidaTel.NUMEROTEL)final String telefono,
-							@ParameterLayout (named="E-Mail")@Parameter(regexPattern = RegexValidation.ValidaMail.EMAIL) final String email,
-							@ParameterLayout (named="Direccion") @Parameter(regexPattern = RegexValidation.ValidaDireccion.DIRECCION )final String direccion)
+	public ViewModelCliente Cargar (
+			@ParameterLayout (named="Nombre")final String nombre,
+			
+			@ParameterLayout (named="Telefono")
+			@Parameter
+			(
+					regexPattern = RegexValidation.ValidaTel.NUMEROTEL,
+					regexPatternReplacement= "patron 000-0000000 , 3 caracteres y 7 numeros"
+					
+			)final String telefono,
+			@ParameterLayout (named="E-Mail")
+			@Parameter
+			(
+					regexPattern = RegexValidation.ValidaMail.EMAIL,
+					regexPatternReplacement= "xxx@xxxxx.xxx"
+			) final String email,
+			@ParameterLayout (named="Direccion") final String direccion)
 							
 	{
 		final Cliente cliente = container.newTransientInstance(Cliente.class);
@@ -86,7 +94,7 @@ public class Clientes extends AbstractFactoryAndRepository
 
 	
 
-	public Cliente CargarEquipo(@ParameterLayout (named="Nombre") @Parameter(regexPattern = RegexValidation.ValidaPalabra.PALABRAINICIALMAYUSCULA )final String nombre, final Cliente c)			
+	public Cliente CargarEquipo(@ParameterLayout (named="Nombre")final String nombre, final Cliente c)			
 	{
 		final Equipo equi = container.newTransientInstance(Equipo.class);
 		equi.setNombre(nombre);

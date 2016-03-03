@@ -2,6 +2,7 @@ package viewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.CollectionLayout;
@@ -13,9 +14,10 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.joda.time.LocalDate;
+
 import servicios.Clientes;
 import servicios.Tarjetas;
-import utilidades.evento.Evento;
+import servicios.utilidades.Evento;
 import dominio.ClasificacionSugerida;
 import dominio.Cliente;
 import dominio.Equipo;

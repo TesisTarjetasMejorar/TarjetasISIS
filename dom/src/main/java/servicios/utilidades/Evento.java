@@ -202,7 +202,7 @@
 
 */
 
-package utilidades.evento;
+package servicios.utilidades;
 
 public enum Evento 
 {
