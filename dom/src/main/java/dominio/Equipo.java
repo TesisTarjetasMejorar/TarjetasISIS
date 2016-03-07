@@ -204,14 +204,24 @@
 
 
 package dominio;
+import java.util.ArrayList;
+
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.VersionStrategy;
 
+import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Action;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainObject;
 import org.apache.isis.applib.annotation.DomainObjectLayout;
 import org.apache.isis.applib.annotation.Editing;
+import org.apache.isis.applib.annotation.InvokeOn;
+import org.apache.isis.applib.annotation.MemberGroupLayout;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Property;
 import org.apache.isis.applib.annotation.ViewModelLayout;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
@@ -230,6 +240,7 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 @PersistenceCapable
 @SuppressWarnings("unused")
 @ViewModelLayout
+@MemberGroupLayout
 public class Equipo implements Comparable<Equipo>
 {
 	private String nombre;
@@ -254,8 +265,9 @@ public class Equipo implements Comparable<Equipo>
 	public double getLongitud() {
 		return longitud;
 	}
-	@org.apache.isis.applib.annotation.Property(editing = Editing.DISABLED)
-	@javax.jdo.annotations.Column(allowsNull = "false",length = 40)
+	@Property(editing = Editing.DISABLED)
+	@Column(allowsNull = "false",length = 40)
+	@MemberOrder(name="Equipo", sequence= "1")
 	public String getNombre() 
 	{
 		return nombre;
@@ -270,6 +282,7 @@ public class Equipo implements Comparable<Equipo>
 	{
 		return TranslatableString.tr("{name}", "name", getNombre());
 	}
+	
 
 	@Override
 	public int compareTo(Equipo o) {
@@ -283,4 +296,6 @@ public class Equipo implements Comparable<Equipo>
 	public String toString() {
 		return "Equipo: " + nombre;
 	}
+	
+
 }

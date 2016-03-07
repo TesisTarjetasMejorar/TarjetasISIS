@@ -32,6 +32,8 @@ import org.apache.isis.applib.fixturescripts.FixtureScript;
 import org.apache.isis.applib.fixturescripts.FixtureScripts;
 import org.apache.isis.applib.fixturescripts.SimpleFixtureScript;
 
+import dominio.Cliente;
+import dominio.dom.fixture.scenarios.RecrearCliente;
 import dominio.dom.fixture.scenarios.RecrearEquipo;
 
 /**
@@ -39,16 +41,25 @@ import dominio.dom.fixture.scenarios.RecrearEquipo;
  */
 @DomainService
 @DomainServiceLayout(
-        named="Prototyping",
+        named="Carga de datos",
         menuBar = DomainServiceLayout.MenuBar.SECONDARY,
         menuOrder = "20"
 )
 public class DominioFixturesService extends FixtureScripts {
 
     public DominioFixturesService() {
-        super("dominio", MultipleExecutionStrategy.EXECUTE);
+        super("dominio.dom", MultipleExecutionStrategy.EXECUTE);
     }
 
+    public List<FixtureResult> instalarFixturesCliente() {
+        final List<FixtureResult> Cliente = findFixtureScriptFor(RecrearCliente.class).run(null);
+        return Cliente;
+    }
+    
+    
+    
+    
+    
     @Override
     public FixtureScript default0RunFixtureScript() {
         return findFixtureScriptFor(SimpleFixtureScript.class);

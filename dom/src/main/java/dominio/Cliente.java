@@ -3,6 +3,8 @@ package dominio;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.Element;
 import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
@@ -17,6 +19,8 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.services.i18n.TranslatableString;
 
+import servicios.Equipos;
+
 
 
 @javax.jdo.annotations.Queries
@@ -29,7 +33,7 @@ import org.apache.isis.applib.services.i18n.TranslatableString;
 @DomainObject(objectType = "Cliente", bounded = true)
 @PersistenceCapable
 @DomainObjectLayout(named = "Cliente")
-@MemberGroupLayout(right = {})
+@MemberGroupLayout( columnSpans= {4,0,0,3})
 public class Cliente implements Comparable<Cliente>, Serializable
 {
 	/**
@@ -49,7 +53,7 @@ public class Cliente implements Comparable<Cliente>, Serializable
 	private List<Equipo> equipos;
 	
 	
-	@MemberOrder (sequence = "1")
+	@MemberOrder (sequence = "1",name= "Cliente")
 	@org.apache.isis.applib.annotation.Property(editing = Editing.ENABLED)
 	@javax.jdo.annotations.Column(allowsNull = "false",length = 100)
 	public String getNombre() {
@@ -59,7 +63,7 @@ public class Cliente implements Comparable<Cliente>, Serializable
 		this.nombre = nombre;
 	}
 	
-	@MemberOrder (sequence = "3")
+	@MemberOrder (sequence = "3",name= "Cliente")
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	public String getEmail() {
 		return email;
@@ -67,7 +71,7 @@ public class Cliente implements Comparable<Cliente>, Serializable
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	@MemberOrder (sequence = "2")
+	@MemberOrder (sequence = "2",name= "Cliente")
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	public String getTelefono() {
 		return telefono;
@@ -78,7 +82,7 @@ public class Cliente implements Comparable<Cliente>, Serializable
 		this.telefono = telefono;
 	}
 	
-	@MemberOrder (sequence = "4")
+	@MemberOrder (sequence = "4",name= "Cliente")
 	@javax.jdo.annotations.Column(allowsNull = "false")
 	public String getDireccion() {
 		return direccion;
@@ -93,14 +97,17 @@ public class Cliente implements Comparable<Cliente>, Serializable
 	}
 	
 
-	@javax.jdo.annotations.Column(allowsNull = "true")
-	@CollectionLayout(render = RenderType.EAGERLY)
-	public List<Equipo> getEquipos() {
+	@Column(allowsNull = "true")
+	@CollectionLayout(render = RenderType.EAGERLY,named= "Equipo")
+	public List<Equipo> getEquipos() {		
 		return equipos;
-	}
+	}		
+	
 	public void setEquipos(List<Equipo> equipos) {
 		this.equipos = equipos;
 	}
+	
+	
 	@Override
 	public int compareTo(Cliente o) {
 		int salida = this.nombre.compareTo(o.getNombre());
@@ -122,6 +129,7 @@ public class Cliente implements Comparable<Cliente>, Serializable
 		return salida;
 	}
 		
-    
+	@javax.inject.Inject
+	Equipos servEquipo;
     
 }

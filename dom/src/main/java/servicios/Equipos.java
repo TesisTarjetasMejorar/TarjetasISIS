@@ -204,8 +204,6 @@
 
 package servicios;
 
-
-
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
@@ -216,8 +214,6 @@ import org.apache.isis.applib.annotation.ParameterLayout;
 
 import dominio.Equipo;
 import dominio.Tarjeta;
-
-
 
 
 @DomainServiceLayout(menuOrder = "70")
@@ -244,16 +240,20 @@ public class Equipos extends AbstractFactoryAndRepository
 			
 	}
 
-	
-	
-
 	public List<Equipo> ListarTodo()
 	{		
 		return container.allInstances(Equipo.class);
 	}
 	
+
 	@javax.inject.Inject 
     DomainObjectContainer container;
+
+
+
+
+
+
 	
 	
 	

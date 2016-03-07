@@ -87,24 +87,44 @@ public class Clientes extends AbstractFactoryAndRepository
 	}	
 		
 	
-	@Action(invokeOn = InvokeOn.COLLECTION_ONLY)
-	public List<Equipo> QuitarEquipo(final Cliente c){
+	@Action(invokeOn = InvokeOn.OBJECT_AND_COLLECTION)
+	public List<Equipo> ModificarEquipos(final Cliente c){
 		return c.getEquipos();
 	}
-
 	
-
-	public Cliente CargarEquipo(@ParameterLayout (named="Nombre")final String nombre, final Cliente c)			
-	{
-		final Equipo equi = container.newTransientInstance(Equipo.class);
-		equi.setNombre(nombre);
-		if (c.getEquipos()==null){
-			c.setEquipos(new ArrayList<Equipo>());
+	
+	public Cliente CargarEquipo(String nombre, Cliente c){
+		Equipo eq = new Equipo();
+		eq.setNombre(nombre);
+		List<Equipo> equiposCliente = c.getEquipos();
+		if (equiposCliente == null){
+			equiposCliente = new ArrayList<Equipo>();
+			c.setEquipos(equiposCliente);
 		}
-		c.getEquipos().add(equi);
-//		container.persistIfNotAlready(c);
+		equiposCliente.add(eq);
 		return c;
 	}
+	
+	
+	public boolean hideCargarEquipo(String nombre, Cliente c){
+		boolean salida = false;
+		if(c==null){
+			salida= true;
+		}		
+		return salida;
+	}
+	
+	
+	
+	
+	public boolean hideModificarEquipos(final Cliente c)
+	{
+		if (c != null)
+			return false;
+		return true;
+	}
+
+
 	public String reporteClientes() throws JRException {
 		List<Cliente> datos = container.allInstances(Cliente.class);
 
@@ -120,17 +140,12 @@ public class Clientes extends AbstractFactoryAndRepository
 	
 	
 	
-	public boolean hideQuitarEquipo(final Cliente c){
-		if(c== null)
-			return true;
-		return false;
-	}
-	public boolean hideCargarEquipo(@ParameterLayout (named="Nombre") final String nombre, final Cliente c)			
-{
-	if (c != null)
-		return false;
-	return true;
-}
+//	public boolean hideCargar(@ParameterLayout (named="Nombre") final String nombre, final Cliente c)			
+//{
+//	if (c != null)
+//		return false;
+//	return true;
+//}
 
 	@Programmatic
 	public void clonar(final Cliente a, Cliente b)
