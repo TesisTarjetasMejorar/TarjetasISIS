@@ -403,10 +403,12 @@ public class Tarjetas extends AbstractFactoryAndRepository
 	
 	public Cliente clienteDeTarjeta(@ParameterLayout (named="Numero de tarjeta")final Tarjeta a){
 		Cliente salida = null;
-		if(a.getEquipo()!= null)
+		List<Cliente> clientes = container.allInstances(Cliente.class);
+		for (Cliente cli : clientes)
 		{
-			salida = cliente.perteneceEquipo(a.getEquipo().getNombre());
-		}	
+				salida = servCliente.perteneceEquipo(cli, a.getEquipo());	
+		}
+		
 		return salida;
 	}
 	
@@ -415,7 +417,7 @@ public class Tarjetas extends AbstractFactoryAndRepository
 	MementoService mementoService;
 	
 	@javax.inject.Inject
-	Cliente cliente;
+	Clientes servCliente;
 	
 	
 	

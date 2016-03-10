@@ -29,13 +29,10 @@ import dominio.Tarjeta;
 		columnSpans={3,3,3,2}
 )
 public class ViewModelTarjeta extends AbstractViewModel
-{
+{	
 	
-	public ViewModelTarjeta(){}
-	
-	
-	private String memento;
-	private Tarjeta tarjeta= null;
+
+
 	private Cliente cliente= null;
 		
 	//----------------------------	Cliente-----------------------------------
@@ -66,6 +63,10 @@ public class ViewModelTarjeta extends AbstractViewModel
 		}	
 				
 		//----------------------------	Tarjeta-----------------------------------
+		
+		
+		
+		private Tarjeta tarjeta= null;
 		
 		@MemberOrder (sequence = "1", name = "Tarjeta")
 		public String getNumTarjetaTesco() {
@@ -171,6 +172,8 @@ public class ViewModelTarjeta extends AbstractViewModel
 	@javax.inject.Inject
 	MementoService mementoService;
 
+	
+	private String memento;
 	@Override
 	public String viewModelMemento() {
 		
@@ -188,8 +191,10 @@ public class ViewModelTarjeta extends AbstractViewModel
 				this.tarjeta = tarjeta;
 			}
 		}
-		
-		cargarClienteNull();
+		if(tarjeta!= null){
+			this.cliente=  servTarjeta.clienteDeTarjeta(this.tarjeta);
+		}
+//		cargarClienteNull();
 		
 		
 	}

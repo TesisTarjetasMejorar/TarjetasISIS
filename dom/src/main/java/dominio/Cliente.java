@@ -116,18 +116,21 @@ public class Cliente implements Comparable<Cliente>, Serializable
 	
 	
 	@Programmatic
-	public Cliente perteneceEquipo(String equipo) {
+	public Cliente perteneceEquipo(final Equipo equipo) 
+	{
 		Cliente salida= null;
-		if(this.equipos != null){
 			for(Equipo eq : this.equipos){
-				if(eq.getNombre().equals(equipo))
+				if(eq.getNombre() == equipo.getNombre().toString())
 				{
 					salida = this;
 				}
 			}
-		}
+		
 		return salida;
 	}
+	
+	
+
 		
 	@javax.inject.Inject
 	Equipos servEquipo;

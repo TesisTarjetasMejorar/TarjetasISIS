@@ -160,6 +160,22 @@ public class Clientes extends AbstractFactoryAndRepository
 			b.setEquipos(a.getEquipos());
 		}
 	}
+	
+	@Programmatic
+	public Cliente perteneceEquipo(final Cliente cliente, final Equipo equipo) {
+		Cliente salida= null;
+			for(Equipo eq : cliente.getEquipos() )
+			{
+				if(eq.getNombre() == equipo.getNombre())
+				{
+					salida = cliente;
+				}
+			}
+		
+		return salida;
+	}
+	
+	
 
 	
 	
