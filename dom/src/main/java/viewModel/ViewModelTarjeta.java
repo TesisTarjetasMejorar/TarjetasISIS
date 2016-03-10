@@ -23,7 +23,7 @@ import dominio.Tarjeta;
 
 @MemberGroupLayout 
 ( 
-		columnSpans={3,4,3,2},middle="Cliente",left="Tarjeta"
+		columnSpans={4,4,0,2},middle="Cliente",left="Tarjeta"
 )
 public class ViewModelTarjeta extends AbstractViewModel
 {	
