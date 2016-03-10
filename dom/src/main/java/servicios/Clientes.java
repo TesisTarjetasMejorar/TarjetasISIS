@@ -163,7 +163,7 @@ public class Clientes extends AbstractFactoryAndRepository
 	
 	@Programmatic
 	public Cliente perteneceEquipo(final Cliente cliente, final Equipo equipo) {
-		Cliente salida= null;
+		Cliente salida = null;
 			for(Equipo eq : cliente.getEquipos() )
 			{
 				if(eq.getNombre() == equipo.getNombre())

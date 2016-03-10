@@ -1,20 +1,17 @@
 package viewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.List;
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.joda.time.LocalDate;
-
 import servicios.Clientes;
 import servicios.Tarjetas;
 import servicios.utilidades.Evento;
@@ -26,10 +23,11 @@ import dominio.Tarjeta;
 
 @MemberGroupLayout 
 ( 
-		columnSpans={3,3,3,2}
+		columnSpans={3,4,3,2},middle="Cliente",left="Tarjeta"
 )
 public class ViewModelTarjeta extends AbstractViewModel
 {	
+
 	
 	private Cliente cliente= null;
 		
@@ -37,6 +35,7 @@ public class ViewModelTarjeta extends AbstractViewModel
 		
 		
 		@MemberOrder (sequence = "20", name = "Cliente")
+		@Title
 		public String getNombre() {
 			return cliente.getNombre();
 		}
@@ -114,44 +113,10 @@ public class ViewModelTarjeta extends AbstractViewModel
 			return tarjeta.isReportado();
 		}
 		
-
-
-		//---------------------------	Cargas------------------------------------
-//		private void cargarTarjeta(final Tarjeta t)
-//		{			
-//			this.tarjeta= t;
-//			this.tarjeta.setNumTarjetaTesco("No tarjeta");
-//			this.tarjeta.setFechaReporte(null);
-//			this.tarjeta.setFechaCarga(null);
-//			this.tarjeta.setLugarObs(null);
-//			this.tarjeta.setLineaNegocio(null);
-//			this.tarjeta.setDecisionTomada(null);
-//			this.tarjeta.setClasifSug(null);
-//			this.tarjeta.setEquipo(null);
-//			this.tarjeta.setEstado(false);
-//			this.tarjeta.setEvento(null);
-//			this.tarjeta.setResuelto(false);
-//			this.tarjeta.setReportado(false);		
-//		}		
-		private void cargarClienteNull() {
-			this.cliente = new Cliente();
-			this.cliente.setNombre("Cliente no encontrado");
-			this.cliente.setEmail("Cliente no encontrado");
-			this.cliente.setTelefono("Cliente no encontrado");
-			this.cliente.setDireccion("Cliente no encontrado");
-			this.cliente.setEquipos(new ArrayList<Equipo>());
-			
-		}			
-
-		//----------------------------	General-----------------------------------
-		
-		@Programmatic
 		public Tarjeta getTarjeta() {
 			return this.tarjeta;
-		}
-		@Programmatic
+		}		
 		public Cliente getCliente() {
-			cargarClienteNull();
 			return this.cliente;
 		}
 
@@ -191,7 +156,7 @@ public class ViewModelTarjeta extends AbstractViewModel
 		if(tarjeta!= null){
 			this.cliente=  servTarjeta.clienteDeTarjeta(this.tarjeta);
 		}
-//		cargarClienteNull();
+
 		
 		
 	}

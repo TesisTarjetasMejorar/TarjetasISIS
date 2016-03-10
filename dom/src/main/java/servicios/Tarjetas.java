@@ -423,11 +423,12 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		List<Cliente> clientes = container.allInstances(Cliente.class);
 		for (Cliente cli : clientes)
 		{
-				salida = servCliente.perteneceEquipo(cli, a.getEquipo());	
-		}
-		
+				if(salida == null)
+					salida = servCliente.perteneceEquipo(cli, a.getEquipo());	
+		}	
 		return salida;
 	}
+	
 	
 	
 	@javax.inject.Inject
