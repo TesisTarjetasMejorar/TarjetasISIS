@@ -31,35 +31,32 @@ import dominio.Tarjeta;
 public class ViewModelTarjeta extends AbstractViewModel
 {	
 	
-
-
 	private Cliente cliente= null;
 		
 	//----------------------------	Cliente-----------------------------------
 		
 		
-		@MemberOrder (sequence = "1", name = "Cliente")
-		@Title(sequence="1", append="Cliente")
+		@MemberOrder (sequence = "20", name = "Cliente")
 		public String getNombre() {
 			return cliente.getNombre();
 		}
-		@MemberOrder (sequence = "2", name = "Cliente")
+		@MemberOrder (sequence = "21", name = "Cliente")
 		public String getEmail() {
 			return cliente.getEmail();
 		}
-		@MemberOrder (sequence = "3", name = "Cliente")
+		@MemberOrder (sequence = "22", name = "Cliente")
 		public String getTelefono() {
 			return cliente.getTelefono();
 		}
-		@MemberOrder (sequence = "4", name = "Cliente")
+		@MemberOrder (sequence = "23", name = "Cliente")
 		public String getDireccion() {
 			return cliente.getDireccion();
 		}
 
 		@CollectionLayout(render = RenderType.EAGERLY)
-		@MemberOrder (sequence = "5", name = "Cliente")
+		@MemberOrder (sequence = "24", name = "Cliente")
 		public List<Equipo> getEquipos() {
-			return new ArrayList<Equipo>();
+			return cliente.getEquipos();
 		}	
 				
 		//----------------------------	Tarjeta-----------------------------------
