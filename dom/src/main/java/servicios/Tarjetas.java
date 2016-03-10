@@ -215,7 +215,6 @@ import org.apache.isis.applib.annotation.ActionLayout;
 import org.apache.isis.applib.annotation.BookmarkPolicy;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.DomainServiceLayout;
-import org.apache.isis.applib.annotation.Parameter;
 import org.apache.isis.applib.annotation.ParameterLayout;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.SemanticsOf;
@@ -223,10 +222,8 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.joda.time.LocalDate;
-
 import reporte.Reporte;
 import servicios.utilidades.Evento;
-import servicios.validacion.RegexValidation;
 import viewModel.ViewModelTarjeta;
 import dominio.ClasificacionSugerida;
 import dominio.Cliente;
@@ -253,8 +250,8 @@ public class Tarjetas extends AbstractFactoryAndRepository
 						@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
 						@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
 						@ParameterLayout(named="Lugar de Observacion") final LugarObservacion lugarObs,
-						@ParameterLayout(named="Linea de Negocio")@Parameter(regexPattern = RegexValidation.ValidaPalabra.PALABRA )final String lineaNeg,
-						@ParameterLayout(named="Decision Tomada") @Parameter(regexPattern = RegexValidation.ValidaPalabra.PALABRA )final String decisionTomada,
+						@ParameterLayout(named="Linea de Negocio")final String lineaNeg,
+						@ParameterLayout(named="Decision Tomada") final String decisionTomada,
    						@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
 						@ParameterLayout(named="Equipo") final Equipo equipo,
 						@ParameterLayout(named="Estado") final boolean estado,
