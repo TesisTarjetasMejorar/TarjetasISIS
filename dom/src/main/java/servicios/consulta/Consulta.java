@@ -413,7 +413,7 @@ public class Consulta
 	
 
 
-	public WickedChart graficoInsidentesPorCliente(@ParameterLayout (named="Cliente")final Cliente cliente){
+	public WickedChart graficoEventosPorCliente(@ParameterLayout (named="Cliente")final Cliente cliente){
 		
 		Map<Evento,AtomicInteger> mapeo = Maps.newTreeMap();
 		List<Tarjeta> lista=  container.allInstances(Tarjeta.class);
