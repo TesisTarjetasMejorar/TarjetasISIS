@@ -1,20 +1,17 @@
 package viewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 
+import java.util.List;
 import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.CollectionLayout;
 import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RenderType;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.joda.time.LocalDate;
-
 import servicios.Clientes;
 import servicios.Tarjetas;
 import servicios.utilidades.Evento;
@@ -26,40 +23,39 @@ import dominio.Tarjeta;
 
 @MemberGroupLayout 
 ( 
-		columnSpans={3,3,3,2}
+		columnSpans={4,4,0,2},middle="Cliente",left="Tarjeta"
 )
 public class ViewModelTarjeta extends AbstractViewModel
 {	
+
 	
-
-
 	private Cliente cliente= null;
 		
 	//----------------------------	Cliente-----------------------------------
 		
 		
-		@MemberOrder (sequence = "1", name = "Cliente")
-		@Title(sequence="1", append="Cliente")
+		@MemberOrder (sequence = "20", name = "Cliente")
+		@Title
 		public String getNombre() {
 			return cliente.getNombre();
 		}
-		@MemberOrder (sequence = "2", name = "Cliente")
+		@MemberOrder (sequence = "21", name = "Cliente")
 		public String getEmail() {
 			return cliente.getEmail();
 		}
-		@MemberOrder (sequence = "3", name = "Cliente")
+		@MemberOrder (sequence = "22", name = "Cliente")
 		public String getTelefono() {
 			return cliente.getTelefono();
 		}
-		@MemberOrder (sequence = "4", name = "Cliente")
+		@MemberOrder (sequence = "23", name = "Cliente")
 		public String getDireccion() {
 			return cliente.getDireccion();
 		}
 
 		@CollectionLayout(render = RenderType.EAGERLY)
-		@MemberOrder (sequence = "5", name = "Cliente")
+		@MemberOrder (sequence = "24", name = "Cliente")
 		public List<Equipo> getEquipos() {
-			return new ArrayList<Equipo>();
+			return cliente.getEquipos();
 		}	
 				
 		//----------------------------	Tarjeta-----------------------------------
@@ -117,44 +113,10 @@ public class ViewModelTarjeta extends AbstractViewModel
 			return tarjeta.isReportado();
 		}
 		
-
-
-		//---------------------------	Cargas------------------------------------
-//		private void cargarTarjeta(final Tarjeta t)
-//		{			
-//			this.tarjeta= t;
-//			this.tarjeta.setNumTarjetaTesco("No tarjeta");
-//			this.tarjeta.setFechaReporte(null);
-//			this.tarjeta.setFechaCarga(null);
-//			this.tarjeta.setLugarObs(null);
-//			this.tarjeta.setLineaNegocio(null);
-//			this.tarjeta.setDecisionTomada(null);
-//			this.tarjeta.setClasifSug(null);
-//			this.tarjeta.setEquipo(null);
-//			this.tarjeta.setEstado(false);
-//			this.tarjeta.setEvento(null);
-//			this.tarjeta.setResuelto(false);
-//			this.tarjeta.setReportado(false);		
-//		}		
-		private void cargarClienteNull() {
-			this.cliente = new Cliente();
-			this.cliente.setNombre("Cliente no encontrado");
-			this.cliente.setEmail("Cliente no encontrado");
-			this.cliente.setTelefono("Cliente no encontrado");
-			this.cliente.setDireccion("Cliente no encontrado");
-			this.cliente.setEquipos(new ArrayList<Equipo>());
-			
-		}			
-
-		//----------------------------	General-----------------------------------
-		
-		@Programmatic
 		public Tarjeta getTarjeta() {
 			return this.tarjeta;
-		}
-		@Programmatic
+		}		
 		public Cliente getCliente() {
-			cargarClienteNull();
 			return this.cliente;
 		}
 
@@ -194,7 +156,7 @@ public class ViewModelTarjeta extends AbstractViewModel
 		if(tarjeta!= null){
 			this.cliente=  servTarjeta.clienteDeTarjeta(this.tarjeta);
 		}
-//		cargarClienteNull();
+
 		
 		
 	}

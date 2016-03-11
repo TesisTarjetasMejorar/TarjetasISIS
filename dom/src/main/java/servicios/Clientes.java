@@ -93,7 +93,7 @@ public class Clientes extends AbstractFactoryAndRepository
 	}
 	
 	
-	public Cliente CargarEquipo(String nombre, Cliente c){
+	public Cliente CargarEquipo(@ParameterLayout(named="Nombre") String nombre, Cliente c){
 		Equipo eq = new Equipo();
 		eq.setNombre(nombre);
 		List<Equipo> equiposCliente = c.getEquipos();
@@ -106,7 +106,7 @@ public class Clientes extends AbstractFactoryAndRepository
 	}
 	
 	
-	public boolean hideCargarEquipo(String nombre, Cliente c){
+	public boolean hideCargarEquipo(@ParameterLayout(named="Nombre") String nombre, Cliente c){
 		boolean salida = false;
 		if(c==null){
 			salida= true;
@@ -163,7 +163,7 @@ public class Clientes extends AbstractFactoryAndRepository
 	
 	@Programmatic
 	public Cliente perteneceEquipo(final Cliente cliente, final Equipo equipo) {
-		Cliente salida= null;
+		Cliente salida = null;
 			for(Equipo eq : cliente.getEquipos() )
 			{
 				if(eq.getNombre() == equipo.getNombre())

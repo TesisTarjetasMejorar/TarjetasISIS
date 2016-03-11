@@ -222,8 +222,11 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.services.memento.MementoService;
 import org.apache.isis.applib.services.memento.MementoService.Memento;
 import org.joda.time.LocalDate;
+
 import reporte.Reporte;
+import servicios.utilidades.Estado;
 import servicios.utilidades.Evento;
+import servicios.utilidades.Respuesta;
 import viewModel.ViewModelTarjeta;
 import dominio.ClasificacionSugerida;
 import dominio.Cliente;
@@ -254,10 +257,10 @@ public class Tarjetas extends AbstractFactoryAndRepository
 						@ParameterLayout(named="Decision Tomada") final String decisionTomada,
    						@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
 						@ParameterLayout(named="Equipo") final Equipo equipo,
-						@ParameterLayout(named="Estado") final boolean estado,
+						@ParameterLayout(named="Estado") final Estado estado,
    						@ParameterLayout(named="Evento") final Evento evento,
-   						@ParameterLayout(named="Resuelto") final boolean resuelto,
-   						@ParameterLayout(named="Reportado a supervisor") final boolean reportado) 
+   						@ParameterLayout(named="Resuelto") final Respuesta resuelto,
+   						@ParameterLayout(named="Reportado a supervisor") final Respuesta reportado) 
 	{
 		final Tarjeta tarjet = container.newTransientInstance(Tarjeta.class);
 		
@@ -268,11 +271,26 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		tarjet.setLineaNegocio(lineaNeg);
         tarjet.setDecisionTomada(decisionTomada);
         tarjet.setClasifSug(cs);
+        
         tarjet.setEquipo(equipo);
-        tarjet.setEstado(estado);
+        if(estado == Estado.Abierto)
+            tarjet.setEstado(true);
+        else
+            tarjet.setEstado(false);
+        
         tarjet.setEvento(evento);
-        tarjet.setResuelto(resuelto);
-        tarjet.setReportado(reportado);
+        tarjet.setEquipo(equipo);
+        
+        if(resuelto == Respuesta.Si)
+            tarjet.setResuelto(true);
+        else
+            tarjet.setResuelto(false);
+        
+        if(reportado == Respuesta.Si)
+            tarjet.setReportado(true);
+        else
+            tarjet.setReportado(false);
+
         container.persistIfNotAlready(tarjet);
 		
 		return tarjet;
@@ -302,19 +320,18 @@ public class Tarjetas extends AbstractFactoryAndRepository
 	 * las tarjetas
 	 *
 	 */
-	public boolean hideCargar(
-			@ParameterLayout (named="Numero de tarjeta") final int numTar,
-			@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
-			@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
-			@ParameterLayout(named="Lugar de Observacion") final LugarObservacion lugarObs,
-			@ParameterLayout(named="Linea de Negocio") final String lineaNeg,
-			@ParameterLayout(named="Decision Tomada") final String decisionTomada,
-			@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
-			@ParameterLayout(named="Equipo") final Equipo equipo,
-			@ParameterLayout(named="Estado") final boolean estado,
-			@ParameterLayout(named="Evento") final Evento evento,
-			@ParameterLayout(named="Resuelto") final boolean resuelto,
-			@ParameterLayout(named="Reportado a supervisor") final boolean reportado)
+	public boolean hideCargar(@ParameterLayout (named="Numero de tarjeta")final int numTar,
+								@ParameterLayout (named="Fecha Reporte") final LocalDate fechaRepo,
+					@ParameterLayout(named="Fecha Carga") final LocalDate fechaCarga,
+					@ParameterLayout(named="Lugar de Observacion") final LugarObservacion lugarObs,
+					@ParameterLayout(named="Linea de Negocio")final String lineaNeg,
+					@ParameterLayout(named="Decision Tomada") final String decisionTomada,
+						@ParameterLayout(named="Clasificacion Sugerida") final ClasificacionSugerida cs,
+					@ParameterLayout(named="Equipo") final Equipo equipo,
+					@ParameterLayout(named="Estado") final Estado estado,
+						@ParameterLayout(named="Evento") final Evento evento,
+						@ParameterLayout(named="Resuelto") final Respuesta resuelto,
+						@ParameterLayout(named="Reportado a supervisor") final Respuesta reportado) 
 			
 	{
 		if(cs!= null || lugarObs != null || equipo != null)
@@ -406,11 +423,12 @@ public class Tarjetas extends AbstractFactoryAndRepository
 		List<Cliente> clientes = container.allInstances(Cliente.class);
 		for (Cliente cli : clientes)
 		{
-				salida = servCliente.perteneceEquipo(cli, a.getEquipo());	
-		}
-		
+				if(salida == null)
+					salida = servCliente.perteneceEquipo(cli, a.getEquipo());	
+		}	
 		return salida;
 	}
+	
 	
 	
 	@javax.inject.Inject
